@@ -7,7 +7,7 @@
  * Copyright 2011-2021 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap");
 html {
   box-sizing: border-box;
   -ms-overflow-style: scrollbar;
@@ -4221,32 +4221,6 @@ html {
 /* bootstrap */
 /* /bootstrap */
 /*.....................................*/
-.dcg-cl-white {
-  color: #FFFFFF;
-}
-
-.dcg-cl-green-grad {
-  background: linear-gradient(92.94deg, #34B76A 0%, #00D13B 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  display: table;
-}
-
-.dcg-bg-grad {
-  background: linear-gradient(90deg, #13A3F7 -0.08%, #50D88D 99.95%);
-}
-
-.dcg-cl-grad {
-  color: transparent;
-  -webkit-background-clip: text;
-  background-clip: text;
-  background-image: linear-gradient(to right, rgb(19, 163, 247), rgb(80, 216, 141));
-}
-
-.dcg-bg-blue-grad {
-  background: linear-gradient(279.88deg, #104F97 -0.67%, #194577 100%);
-}
-
 /*.....................................*/
 html, body {
   height: 100%;
@@ -4257,18 +4231,15 @@ html, body {
 }
 
 body {
-  font-family: "Montserrat";
+  font-family: "Roboto", sans-serif;
   font-style: normal;
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 22px;
-  color: #2E2E2E;
-}
-body.lock {
-  overflow: hidden;
+  font-weight: 300;
+  font-size: 15px;
+  line-height: 18px;
+  color: #000000;
 }
 a {
-  font-family: "Montserrat";
+  font-family: "Roboto", sans-serif;
   font-style: normal;
   font-weight: 400;
   text-decoration-line: underline;
@@ -4281,78 +4252,81 @@ a:hover {
 /*.....................................*/
 /* Стили для всех заголовков */
 .dcg-h1 {
-  font-family: "Montserrat";
-  font-style: normal;
-  font-weight: 500;
-  font-size: 24px;
-  line-height: 29px;
-  color: #2E2E2E;
+  font-family: "Roboto", sans-serif;
+  font-size: 20px;
+  line-height: 23px;
 }
 .dcg-h2 {
-  font-family: "Montserrat";
-  font-style: normal;
-  font-weight: 500;
-  font-size: 18px;
-  line-height: 22px;
-  color: #2E2E2E;
-}
-.dcg-h3 {
-  font-family: "Montserrat";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 22px;
-  color: #2E2E2E;
-}
-.dcg-h4 {
-  font-family: "Montserrat";
-  font-style: normal;
-  font-weight: 400;
+  font-family: "Roboto", sans-serif;
   font-size: 16px;
-  line-height: 20px;
-  color: #2E2E2E;
+  line-height: 19px;
+}
+/*.dcg-h3 {
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    color: #2E2E2E;
+
+    @include media-breakpoint-down (xs) {
+    }
+}
+
+.dcg-h4 {
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 20px;
+    color: #2E2E2E;
+
+    @include media-breakpoint-down (sm) {
+    }
 }
 .dcg-h5 {
-  font-family: "Montserrat";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 15px;
-  line-height: 18px;
-  color: #2E2E2E;
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 18px;
+    color: #2E2E2E;
+
+    @include media-breakpoint-down (sm) {
+    }
 }
 .dcg-h6 {
-  font-family: "Montserrat";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 17px;
-  color: #2E2E2E;
-}
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    color: #2E2E2E;
+
+    @include media-breakpoint-down (sm) {
+    }
+}*/
 /*.....................................*/
 /* section - блоки сайта */
 .dcg-section {
-  padding-bottom: 50px;
+  width: 1078px;
+  margin: 0 auto;
+  padding-top: 35px;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
 }
+.dcg-container {
+  width: 1008px;
+  margin: 0 auto;
+}
+
+.dc-divider {
+  border: 1px solid #ECECEC;
+}
+
 /* /section */
 /*.....................................*/
 /* common */
-.dcg-content-wrapper {
-  min-height: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-.dcg-disabled {
-  opacity: 0.6;
-}
-
-.dcg-shadow {
-  box-shadow: 0px 0px 10px rgba(46, 46, 46, 0.2);
-}
-.dcg-shadow_light {
-  box-shadow: 0px 4px 25px rgba(46, 46, 46, 0.25);
-}
-
 /* /common */
 /* /CLASSES */
 /*------------------------------------------------------------*/
@@ -4372,6 +4346,19 @@ a:hover {
 /* VENDORS */
 /*.....................................*/
 /*.....................................*/
+.ui-checkboxradio-label.ui-checkboxradio-checked .ui-checkboxradio-icon {
+  width: 20px;
+  height: 20px;
+  background: url("../../assets/B.svg") center center/cover no-repeat;
+  border-radius: 2px;
+}
+.ui-checkboxradio-label .ui-checkboxradio-icon {
+  width: 20px;
+  height: 20px;
+  border: 1px solid #ECECEC;
+  border-radius: 2px;
+}
+
 /*.....................................*/
 .ui-selectmenu-button {
   border: none;
@@ -4469,84 +4456,47 @@ a:hover {
 /* PAGE */
 /*------------------------------------------------------------*/
 /* button, [type="button"], [type="submit"], [type="reset"], .dcg-btn */
-@keyframes dcg-loading-spin {
-  100% {
-    -webkit-transform: rotate(360deg);
-    transform: rotate(360deg);
-  }
-}
 button, [type=button], [type=submit], [type=reset], .dcg-btn {
-  display: inline-block;
   position: relative;
-  border-radius: 5px;
-  font-weight: 500;
-  font-size: 18px;
-  line-height: 22px;
-  padding: 9px 130px;
-  transition: all ease 0.3s;
-  box-sizing: border-box;
-  background: linear-gradient(34.68deg, #F18018 0.06%, #FFB774 99.85%);
+  display: block;
+  width: 150px;
+  height: 30px;
+  border-radius: 2px;
+  background: #039C00;
   border: none;
+  font-family: "Roboto", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 18px;
   color: #FFFFFF;
 }
-button.dcg-btn_loading::after, [type=button].dcg-btn_loading::after, [type=submit].dcg-btn_loading::after, [type=reset].dcg-btn_loading::after, .dcg-btn.dcg-btn_loading::after {
-  content: url("../images/white-loading-icon.svg");
+button.dcg-btn_red, [type=button].dcg-btn_red, [type=submit].dcg-btn_red, [type=reset].dcg-btn_red, .dcg-btn.dcg-btn_red {
+  background: #FF0909;
+}
+button.dcg-btn_disabled, [type=button].dcg-btn_disabled, [type=submit].dcg-btn_disabled, [type=reset].dcg-btn_disabled, .dcg-btn.dcg-btn_disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+button.dcg-btn_disabled:active, button.dcg-btn_disabled:hover, [type=button].dcg-btn_disabled:active, [type=button].dcg-btn_disabled:hover, [type=submit].dcg-btn_disabled:active, [type=submit].dcg-btn_disabled:hover, [type=reset].dcg-btn_disabled:active, [type=reset].dcg-btn_disabled:hover, .dcg-btn.dcg-btn_disabled:active, .dcg-btn.dcg-btn_disabled:hover {
+  box-shadow: none;
+}
+button.dcg-btn_disabled:after, [type=button].dcg-btn_disabled:after, [type=submit].dcg-btn_disabled:after, [type=reset].dcg-btn_disabled:after, .dcg-btn.dcg-btn_disabled:after {
+  content: "";
   position: absolute;
-  top: 12px;
-  right: 19px;
-}
-button.dcg-btn-accent, [type=button].dcg-btn-accent, [type=submit].dcg-btn-accent, [type=reset].dcg-btn-accent, .dcg-btn.dcg-btn-accent {
-  background: linear-gradient(34.68deg, #009B19 0.06%, #00D008 99.85%);
-  border: none;
-  color: #FFFFFF;
-}
-button.dcg-btn-accent_loading::after, [type=button].dcg-btn-accent_loading::after, [type=submit].dcg-btn-accent_loading::after, [type=reset].dcg-btn-accent_loading::after, .dcg-btn.dcg-btn-accent_loading::after {
-  content: url("../images/white-loading-icon.svg");
-  position: absolute;
-  top: 12px;
-  right: 19px;
-}
-button.dcg-btn-lite, [type=button].dcg-btn-lite, [type=submit].dcg-btn-lite, [type=reset].dcg-btn-lite, .dcg-btn.dcg-btn-lite {
-  background: transparent;
-  border: 2px solid #F18018;
-  color: #F18018;
-}
-button.dcg-btn-lite_loading::after, [type=button].dcg-btn-lite_loading::after, [type=submit].dcg-btn-lite_loading::after, [type=reset].dcg-btn-lite_loading::after, .dcg-btn.dcg-btn-lite_loading::after {
-  content: url("../images/accent-loading-icon.svg");
-  position: absolute;
-  top: 12px;
-  right: 19px;
-}
-button.dcg-btn-cancel, [type=button].dcg-btn-cancel, [type=submit].dcg-btn-cancel, [type=reset].dcg-btn-cancel, .dcg-btn.dcg-btn-cancel {
-  background: transparent;
-  border: 2px solid #CB0000;
-  color: #CB0000;
-}
-button.dcg-btn-cancel_loading::after, [type=button].dcg-btn-cancel_loading::after, [type=submit].dcg-btn-cancel_loading::after, [type=reset].dcg-btn-cancel_loading::after, .dcg-btn.dcg-btn-cancel_loading::after {
-  content: url("../images/cancel-loading-icon.svg");
-  position: absolute;
-  top: 12px;
-  right: 19px;
-}
-button::after, [type=button]::after, [type=submit]::after, [type=reset]::after, .dcg-btn::after {
-  animation: dcg-loading-spin 1s linear infinite;
-  width: 16px;
-  height: 16px;
+  bottom: -9px;
+  right: -9px;
+  width: 18px;
+  height: 18px;
+  background: url("../../assets/disabled.svg");
 }
 button:active, button:hover, [type=button]:active, [type=button]:hover, [type=submit]:active, [type=submit]:hover, [type=reset]:active, [type=reset]:hover, .dcg-btn:active, .dcg-btn:hover {
-  box-shadow: 0px 0px 10px rgba(46, 46, 46, 0.2);
-}
-button[disabled], [type=button][disabled], [type=submit][disabled], [type=reset][disabled], .dcg-btn[disabled] {
-  opacity: 0.4;
+  box-shadow: 0px 0px 10px rgba(3, 156, 0, 0.4);
 }
 /* /button, [type="button"], [type="submit"], [type="reset"], .ssg-button */
 /*.....................................*/
 /* [type="text"], [type="email"], [type="password"], textarea, select */
 [type=text], [type=email], [type=password], textarea, select, .dcg-input {
-  font-size: 18px;
-  line-height: 22px;
-  color: #2E2E2E;
-  padding: 9px 16px;
   border: 1px solid #818181;
   border-radius: 5px;
 }
@@ -4742,10 +4692,60 @@ button[disabled], [type=button][disabled], [type=submit][disabled], [type=reset]
   border: 1px solid #F18018;
 }
 
+textarea {
+  resize: none;
+}
+textarea.dcg-textarea {
+  width: 1008px;
+  min-height: 165px;
+  padding: 16px 21px 0px 21px;
+  border: 1px solid #ECECEC;
+  border-radius: 2px;
+  margin-top: 15px;
+}
+textarea:focus {
+  border: 1px solid #ECECEC;
+  outline: none !important;
+  box-shadow: 0 0 10px #719ECE;
+}
+
 /* /[type="text"], [type="email"], [type="password"], textarea, select */
 /*.....................................*/
 /*------------------------------------------------------------*/
 /* TEMPLATES */
+.dc-api-check-box {
+  margin-top: 20px;
+}
+.dc-ctrl-btn {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+.dc-ctrl-btn__wrapper {
+  width: 330px;
+  display: flex;
+  justify-content: space-between;
+}
+.dc-ctrl-language {
+  height: 109px;
+  margin-top: 20px;
+  padding: 20px 0;
+  border-top: 1px solid #ECECEC;
+  border-bottom: 1px solid #ECECEC;
+}
+.dc-currency-pairs {
+  min-height: 254px;
+  padding: 20px 0px 35px 0px;
+  border-top: 1px solid #ECECEC;
+  border-bottom: 1px solid #ECECEC;
+}
+.dc-progress-bar {
+  width: 1008px;
+  height: 10px;
+  margin-top: 20px;
+  background: #ECECEC;
+  border-radius: 2px;
+}
 /*.....................................*/
 /* TEMPLATE: classes */
 .dc-classes {

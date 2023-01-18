@@ -1,0 +1,19 @@
+// /*.....................................*/
+// /* TEMPLATE: ctrl-btn */
+.dc-ctrl-btn {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+
+    &__wrapper {
+        width: 330px;
+        display: flex;
+        justify-content: space-between;
+    }
+
+
+    @include media-breakpoint-down (sm) {
+    }
+}
+// /* /TEMPLATE: ctrl-btn */
+// /*.....................................*/

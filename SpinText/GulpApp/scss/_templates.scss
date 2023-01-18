@@ -1,3 +1,133 @@
+// /*.....................................*/
+// /* TEMPLATE: api-check-box */
+.dc-api-check-box {
+    margin-top: 20px;
+    @include media-breakpoint-down (sm) {
+
+    }
+}
+// /* /TEMPLATE: api-check-box */
+// /*.....................................*/
+
+// /*.....................................*/
+// /* TEMPLATE: block-btns */
+.dc-block-btns {
+
+    @include media-breakpoint-down (sm) {
+
+    }
+}
+// /* /TEMPLATE: block-btns */
+// /*.....................................*/
+
+// /*.....................................*/
+// /* TEMPLATE: blocks-main */
+.dc-blocks-main {
+
+    @include media-breakpoint-down (sm) {
+
+    }
+}
+// /* /TEMPLATE: blocks-main */
+// /*.....................................*/
+
+// /*.....................................*/
+// /* TEMPLATE: block-text-input */
+.dc-block-text-input {
+
+    @include media-breakpoint-down (sm) {
+
+    }
+}
+// /* /TEMPLATE: block-text-input */
+// /*.....................................*/
+
+// /*.....................................*/
+// /* TEMPLATE: ctrl-blocks-btns */
+.dc-ctrl-blocks-btns {
+
+    @include media-breakpoint-down (sm) {
+
+    }
+}
+// /* /TEMPLATE: ctrl-blocks-btns */
+// /*.....................................*/
+
+// /*.....................................*/
+// /* TEMPLATE: ctrl-btn */
+.dc-ctrl-btn {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+
+    &__wrapper {
+        width: 330px;
+        display: flex;
+        justify-content: space-between;
+    }
+
+
+    @include media-breakpoint-down (sm) {
+    }
+}
+// /* /TEMPLATE: ctrl-btn */
+// /*.....................................*/
+
+// /*.....................................*/
+// /* TEMPLATE: ctrl-language */
+.dc-ctrl-language {
+    height: 109px;
+    margin-top: 20px;
+    padding: 20px 0;
+    border-top: 1px solid #ECECEC;
+    border-bottom: 1px solid #ECECEC;
+
+    @include media-breakpoint-down (sm) {
+    }
+}
+// /* /TEMPLATE: ctrl-language */
+// /*.....................................*/
+
+// /*.....................................*/
+// /* TEMPLATE: currency-pairs */
+.dc-currency-pairs {
+    min-height: 254px;
+    padding: 20px 0px 35px 0px;
+    border-top: 1px solid #ECECEC;
+    border-bottom: 1px solid #ECECEC;
+
+    @include media-breakpoint-down (sm) {
+    }
+}
+// /* /TEMPLATE: currency-pairs */
+// /*.....................................*/
+
+// /*.....................................*/
+// /* TEMPLATE: drop-down-block */
+.dc-drop-down-block {
+
+    @include media-breakpoint-down (sm) {
+
+    }
+}
+// /* /TEMPLATE: drop-down-block */
+// /*.....................................*/
+
+// /*.....................................*/
+// /* TEMPLATE: progress-bar */
+.dc-progress-bar {
+    width: 1008px;
+    height: 10px;
+    margin-top: 20px;
+    background: #ECECEC;
+    border-radius: 2px;
+
+    @include media-breakpoint-down (sm) {
+    }
+}
+// /* /TEMPLATE: progress-bar */
+// /*.....................................*/
+
 /*.....................................*/
 /* TEMPLATE: classes */
 .dc-classes {

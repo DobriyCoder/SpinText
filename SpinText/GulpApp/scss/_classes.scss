@@ -5,27 +5,7 @@
 /* /bootstrap */
 /*.....................................*/
 // test
-.dcg-cl-white {
-    color: #FFFFFF;
-}
-.dcg-cl-green-grad {
-    background: linear-gradient(92.94deg, #34B76A 0%, #00D13B 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    display: table;
-}
-.dcg-bg-grad {
-    background: linear-gradient(90deg, #13A3F7 -0.08%, #50D88D 99.95%);
-}
-.dcg-cl-grad {
-    color: transparent;
-    -webkit-background-clip: text;
-    background-clip: text;
-    background-image: linear-gradient(to right, rgba(19, 163, 247, 1), rgba(80, 216, 141, 1));
-}
-.dcg-bg-blue-grad {
-    background: linear-gradient(279.88deg, #104F97 -0.67%, #194577 100%);
-}
+
 // /test
 /*.....................................*/
 html, body {
@@ -37,23 +17,20 @@ html, body {
 }
 
 body {
-    font-family: 'Montserrat';
+    font-family: 'Roboto', sans-serif;
     font-style: normal;
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 22px;
-    color: #2E2E2E;
+    font-weight: 300;
+    font-size: 15px;
+    line-height: 18px;
+    color: #000000;
 
     @include media-breakpoint-down (sm) {
     }
 }
 
-ul, li {
-
-}
 
 a {
-    font-family: 'Montserrat';
+    font-family: 'Roboto', sans-serif;
     font-style: normal;
     font-weight: 400;
     text-decoration-line: underline;
@@ -77,12 +54,9 @@ a {
 }
 
 .dcg-h1 {
-    font-family: 'Montserrat';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 24px;
-    line-height: 29px;
-    color: #2E2E2E;
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+    line-height: 23px;
 
 
     @include media-breakpoint-down (md) {
@@ -93,19 +67,16 @@ a {
 }
 
 .dcg-h2 {
-    font-family: 'Montserrat';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 18px;
-    line-height: 22px;
-    color: #2E2E2E;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    line-height: 19px;
 
     @include media-breakpoint-down (sm) {
     }
 }
 
-.dcg-h3 {
-    font-family: 'Montserrat';
+/*.dcg-h3 {
+    font-family: 'Roboto', sans-serif;
     font-style: normal;
     font-weight: 400;
     font-size: 18px;
@@ -117,7 +88,7 @@ a {
 }
 
 .dcg-h4 {
-    font-family: 'Montserrat';
+    font-family: 'Roboto', sans-serif;
     font-style: normal;
     font-weight: 400;
     font-size: 16px;
@@ -128,7 +99,7 @@ a {
     }
 }
 .dcg-h5 {
-    font-family: 'Montserrat';
+    font-family: 'Roboto', sans-serif;
     font-style: normal;
     font-weight: 400;
     font-size: 15px;
@@ -139,7 +110,7 @@ a {
     }
 }
 .dcg-h6 {
-    font-family: 'Montserrat';
+    font-family: 'Roboto', sans-serif;
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
@@ -148,41 +119,19 @@ a {
 
     @include media-breakpoint-down (sm) {
     }
-}
+}*/
 /*.....................................*/
 /* section - блоки сайта */
 .dcg-section {
-    padding-bottom: 50px;
-    
+    width: 1078px;
+    margin: 0 auto;
+    padding-top: 35px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+
     &_small-padding {
-        
     }
 
-    &_all-screen {
-
-    }
-
-    & + & {
-
-    }
-
-    &_dark {
-    }
-
-    &_gray {
-    }
-
-    &_light {
-    }
-
-    &_clr {
-    }
-
-    &_alert {
-    }
-
-    &_error {
-    }
 
     @include media-breakpoint-down (lg) {
     }
@@ -214,6 +163,15 @@ a {
         &_padding-heading {
         }
     }
+}
+
+.dcg-container {
+    width: 1008px;
+    margin: 0 auto;
+}
+
+.dc-divider {
+    border: 1px solid #ECECEC;
 }
 /* /section */
 /*.....................................*/

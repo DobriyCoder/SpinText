@@ -26,11 +26,22 @@
 .ui-checkboxradio-label {
 
     &.ui-checkboxradio-checked {
-        &::before {
+        &:before {
+        }
+
+        .ui-checkboxradio-icon {
+            width: 20px;
+            height: 20px;
+            background: url('../../assets/B.svg') center center/cover  no-repeat;
+            border-radius: 2px;
         }
     }
 
     .ui-checkboxradio-icon {
+        width: 20px;
+        height: 20px;
+        border: 1px solid #ECECEC;
+        border-radius: 2px;
     }
 }
 // /checkbox

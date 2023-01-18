@@ -1,0 +1,13 @@
+// /*.....................................*/
+// /* TEMPLATE: currency-pairs */
+.dc-currency-pairs {
+    min-height: 254px;
+    padding: 20px 0px 35px 0px;
+    border-top: 1px solid #ECECEC;
+    border-bottom: 1px solid #ECECEC;
+
+    @include media-breakpoint-down (sm) {
+    }
+}
+// /* /TEMPLATE: currency-pairs */
+// /*.....................................*/

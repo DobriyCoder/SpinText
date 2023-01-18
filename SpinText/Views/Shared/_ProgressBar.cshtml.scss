@@ -1,0 +1,14 @@
+// /*.....................................*/
+// /* TEMPLATE: progress-bar */
+.dc-progress-bar {
+    width: 1008px;
+    height: 10px;
+    margin-top: 20px;
+    background: #ECECEC;
+    border-radius: 2px;
+
+    @include media-breakpoint-down (sm) {
+    }
+}
+// /* /TEMPLATE: progress-bar */
+// /*.....................................*/
