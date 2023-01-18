@@ -1,0 +1,26 @@
+$grid-columns:      12;
+$grid-gutter-width: 20px;
+
+$grid-breakpoints: (
+  xs: 0,
+  // Small screen / phone
+  sm: 340px,
+  // Medium screen / tablet
+  md: 560px,
+  // Large screen / desktop
+  lg: 800px,
+  // Extra large screen / wide desktop
+  xl: 1100px,
+
+  xxl: 1400px  
+);
+
+$container-max-widths: (
+  sm: 310px,//-
+  md: 508px,
+  lg: 718px,//-
+  xl: 990px,
+  xxl: 1270px//-
+);
+ 
+@import "node_modules/bootstrap/scss/bootstrap-grid";
