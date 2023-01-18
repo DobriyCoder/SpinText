@@ -12,9 +12,10 @@
 // /*.....................................*/
 // /* TEMPLATE: block-btns */
 .dc-block-btns {
+    display: flex;
+    justify-content: space-between;
 
     @include media-breakpoint-down (sm) {
-
     }
 }
 // /* /TEMPLATE: block-btns */
@@ -23,7 +24,7 @@
 // /*.....................................*/
 // /* TEMPLATE: blocks-main */
 .dc-blocks-main {
-
+    padding-top: 20px;
     @include media-breakpoint-down (sm) {
 
     }
@@ -45,7 +46,9 @@
 // /*.....................................*/
 // /* TEMPLATE: ctrl-blocks-btns */
 .dc-ctrl-blocks-btns {
-
+    display: flex; 
+    justify-content: space-between;
+    margin-top: 20px;
     @include media-breakpoint-down (sm) {
 
     }
@@ -105,9 +108,30 @@
 // /*.....................................*/
 // /* TEMPLATE: drop-down-block */
 .dc-drop-down-block {
+    min-height: 49px;
+    margin-top: 6px;
+
+    &__wrapper {
+        height: 100%;
+        display: flex;
+        justify-content: start;
+        align-items: center;
+    }
+
+    &__content {
+        display: none;
+    }
+
+    &__close {
+        display: flex;
+        align-items: center;
+/*        cursor: pointer;*/
+    }
+
+
+
 
     @include media-breakpoint-down (sm) {
-
     }
 }
 // /* /TEMPLATE: drop-down-block */

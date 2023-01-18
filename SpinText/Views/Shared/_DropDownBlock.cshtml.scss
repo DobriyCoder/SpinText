@@ -1,9 +1,30 @@
 // /*.....................................*/
 // /* TEMPLATE: drop-down-block */
 .dc-drop-down-block {
+    min-height: 49px;
+    margin-top: 6px;
+
+    &__wrapper {
+        height: 100%;
+        display: flex;
+        justify-content: start;
+        align-items: center;
+    }
+
+    &__content {
+        display: none;
+    }
+
+    &__close {
+        display: flex;
+        align-items: center;
+/*        cursor: pointer;*/
+    }
+
+
+
 
     @include media-breakpoint-down (sm) {
-
     }
 }
 // /* /TEMPLATE: drop-down-block */

@@ -4470,9 +4470,13 @@ button, [type=button], [type=submit], [type=reset], .dcg-btn {
   font-size: 15px;
   line-height: 18px;
   color: #FFFFFF;
+  padding: 0;
 }
 button.dcg-btn_red, [type=button].dcg-btn_red, [type=submit].dcg-btn_red, [type=reset].dcg-btn_red, .dcg-btn.dcg-btn_red {
   background: #FF0909;
+}
+button.dcg-btn_red:active, button.dcg-btn_red:hover, [type=button].dcg-btn_red:active, [type=button].dcg-btn_red:hover, [type=submit].dcg-btn_red:active, [type=submit].dcg-btn_red:hover, [type=reset].dcg-btn_red:active, [type=reset].dcg-btn_red:hover, .dcg-btn.dcg-btn_red:active, .dcg-btn.dcg-btn_red:hover {
+  box-shadow: 0px 0px 10px rgba(255, 58, 58, 0.4);
 }
 button.dcg-btn_disabled, [type=button].dcg-btn_disabled, [type=submit].dcg-btn_disabled, [type=reset].dcg-btn_disabled, .dcg-btn.dcg-btn_disabled {
   opacity: 0.4;
@@ -4493,6 +4497,22 @@ button.dcg-btn_disabled:after, [type=button].dcg-btn_disabled:after, [type=submi
 button:active, button:hover, [type=button]:active, [type=button]:hover, [type=submit]:active, [type=submit]:hover, [type=reset]:active, [type=reset]:hover, .dcg-btn:active, .dcg-btn:hover {
   box-shadow: 0px 0px 10px rgba(3, 156, 0, 0.4);
 }
+.dcj-toggle-btn {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  /*    padding: 0px 90px 0px 30px;*/
+  cursor: pointer;
+  width: 100%;
+  height: 49px;
+  transition: all 0.5s ease;
+}
+@media (max-width: 559.98px) {
+  .dcj-toggle-btn {
+    padding: 0px;
+  }
+}
+
 /* /button, [type="button"], [type="submit"], [type="reset"], .ssg-button */
 /*.....................................*/
 /* [type="text"], [type="email"], [type="password"], textarea, select */
@@ -4716,6 +4736,18 @@ textarea:focus {
 .dc-api-check-box {
   margin-top: 20px;
 }
+.dc-block-btns {
+  display: flex;
+  justify-content: space-between;
+}
+.dc-blocks-main {
+  padding-top: 20px;
+}
+.dc-ctrl-blocks-btns {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
 .dc-ctrl-btn {
   display: flex;
   justify-content: space-between;
@@ -4738,6 +4770,24 @@ textarea:focus {
   padding: 20px 0px 35px 0px;
   border-top: 1px solid #ECECEC;
   border-bottom: 1px solid #ECECEC;
+}
+.dc-drop-down-block {
+  min-height: 49px;
+  margin-top: 6px;
+}
+.dc-drop-down-block__wrapper {
+  height: 100%;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+.dc-drop-down-block__content {
+  display: none;
+}
+.dc-drop-down-block__close {
+  display: flex;
+  align-items: center;
+  /*        cursor: pointer;*/
 }
 .dc-progress-bar {
   width: 1008px;

@@ -1,6 +1,18 @@
 ﻿@model IPartialModel
 
 <div class="dc-drop-down-block @Model.Cls" @Model.Attrs>
-    drop-down-block
-    @Model.Content
+    <div class="dcj-toggle-btn">
+        <div class="dc-drop-down-block__wrapper">
+            <h2 class="dcg-h2">
+                Block 1
+            </h2>
+            <img class="dc-drop-down-block__arrow" src="~/assets/arrow.svg" alt="arrow">
+        </div>
+        <div class="dc-drop-down-block__close">
+            <img src="~/assets/close.svg" alt="close">
+        </div>
+    </div>
+    <div class="dc-drop-down-block__content">
+        @Model.Content
+    </div>
 </div>
