@@ -144,8 +144,8 @@
 .ui-selectmenu-menu {
     border: 1px solid #ECECEC;
     border-radius: 0px 0px 8px 8px;
-    width: 1008px;
     background: #FFFFFF;
+    width: 1008px;
 
     ul {
         width: 1008px;
@@ -156,6 +156,7 @@
 
             .ui-menu-item-wrapper {
                 padding: 0.4rem 0rem;
+
                 &.ui-state-active {
                     margin: 0px !important;
                 }
@@ -165,6 +166,26 @@
                 background: #ECECEC;
             }
         }
+    }
+
+    @include media-breakpoint-down (xl) {
+        max-width: 700px;
+    }
+
+    @include media-breakpoint-down (lg) {
+        max-width: 460px;
+    }
+
+    @include media-breakpoint-down (md) {
+        max-width: 340px;
+    }
+
+    @include media-breakpoint-down (sm) {
+        max-width: 275px;
+    }
+
+    @include media-breakpoint-down (xs) {
+        max-width: 250px;
     }
 }
 // / меню выбора (select)

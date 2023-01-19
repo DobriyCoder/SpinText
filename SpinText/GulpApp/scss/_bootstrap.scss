@@ -6,21 +6,22 @@ $grid-breakpoints: (
   // Small screen / phone
   sm: 340px,
   // Medium screen / tablet
-  md: 560px,
+  md: 490px,
   // Large screen / desktop
-  lg: 800px,
+  lg: 640px,
   // Extra large screen / wide desktop
-  xl: 1100px,
+  xl: 890px,
 
-  xxl: 1400px  
+  xxl: 1170px  
 );
 
 $container-max-widths: (
-  sm: 310px,//-
-  md: 508px,
-  lg: 718px,//-
-  xl: 990px,
-  xxl: 1270px//-
+  xs: 310px,
+  sm: 335px,//-
+  md: 400px,
+  lg: 550px,//-
+  xl: 790px,
+  xxl: 1098px /*xxl: 1270px*///- +20px
 );
  
 @import "node_modules/bootstrap/scss/bootstrap-grid";

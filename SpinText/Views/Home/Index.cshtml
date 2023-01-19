@@ -2,31 +2,33 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="dcg-section">
-    <div class="dcg-container">
-        <h1 class="dcg-h1">
-            Spin text generator
-        </h1>
-        <tpl :ProgressBar/>
-        <tpl :CtrlBtn/>
-        <tpl :CtrlLanguage/>
-        <tpl :ApiCheckBox/>
-        <tpl :CurrencyPairs/>
-        <tpl :BlocksMain>
-            <h2 class="dcg-h2">
-                Blocks
-            </h2>
-            <tpl :CtrlBlocksBtns/>
-            <tpl :DropDownBlock>
-                <tpl :BlockBtns/>
-                <tpl :BlockTextInput/>
-                <tpl :BlockTextInput />
+<div class="container">
+    <div class="dcg-section">
+        <div class="dcg-container">
+            <h1 class="dcg-h1">
+                Spin text generator
+            </h1>
+            <tpl :ProgressBar />
+            <tpl :CtrlBtn />
+            <tpl :CtrlLanguage />
+            <tpl :ApiCheckBox />
+            <tpl :CurrencyPairs />
+            <tpl :BlocksMain>
+                <h2 class="dcg-h2">
+                    Blocks
+                </h2>
+                <tpl :CtrlBlocksBtns />
+                <tpl :DropDownBlock>
+                    <tpl :BlockBtns />
+                    <tpl :BlockTextInput />
+                    <tpl :BlockTextInput />
+                </tpl>
+                <tpl :DropDownBlock>
+                    <tpl :BlockBtns />
+                    <tpl :BlockTextInput />
+                    <tpl :BlockTextInput />
+                </tpl>
             </tpl>
-            <tpl :DropDownBlock>
-                <tpl :BlockBtns/>
-                <tpl :BlockTextInput/>
-                <tpl :BlockTextInput />
-            </tpl>
-        </tpl>
+        </div>
     </div>
 </div>

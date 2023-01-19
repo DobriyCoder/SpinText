@@ -8,11 +8,32 @@
     &__wrapper {
         width: 320px;
         display: flex;
+        flex-wrap: wrap;
         justify-content: space-between;
     }
 
 
-    @include media-breakpoint-down (sm) {
+    @include media-breakpoint-down (lg) {
+        margin-top: 0px;
+
+        &__wrapper {
+            justify-content: center;
+
+            button {
+                margin-top: 30px;
+            }
+        }
+    }
+
+    @include media-breakpoint-down (md) {
+
+
+        &__wrapper {
+
+            button {
+                margin-top: 20px;
+            }
+        }
     }
 }
 // /* /TEMPLATE: ctrl-btn */
