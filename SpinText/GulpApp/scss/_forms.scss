@@ -329,17 +329,19 @@
 
 textarea {
     resize: none;
+    font: 100% sans-serif;
 
     &.dcg-textarea {
         width: 100%;
         min-height: 165px;
-        padding: 16px 21px 0px 21px;
+        padding: 16px 18px 0px 21px;
         border: 1px solid #ECECEC;
         border-radius: 2px;
         margin-top: 15px;
+        font-weight: 300;
 
-        &_padding-right {
-            padding-right: 57px;
+        &_big-padding-right {
+            padding-right: 45px;
         }
     }
 

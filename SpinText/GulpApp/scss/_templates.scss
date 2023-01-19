@@ -38,7 +38,7 @@
 // /*.....................................*/
 // /* TEMPLATE: blocks-main */
 .dc-blocks-main {
-    padding-top: 20px;
+    padding-top: 15px;
     @include media-breakpoint-down (sm) {
 
     }
@@ -53,8 +53,8 @@
 
     &__close {
         position: absolute;
-        top: 40px;
-        right: 25px;
+        top: 35px;
+        right: 20px;
     }
 
     @include media-breakpoint-down (sm) {
@@ -84,7 +84,7 @@
     margin-top: 20px;
 
     &__wrapper {
-        width: 330px;
+        width: 320px;
         display: flex;
         justify-content: space-between;
     }
@@ -149,7 +149,6 @@
 
     &__arrow {
         margin-left: 13px;
-        /*        transform: rotate(-180deg);*/
         transition: transform 1s;
     }
 
@@ -167,7 +166,7 @@
 .dc-progress-bar {
     width: 1008px;
     height: 10px;
-    margin-top: 20px;
+    margin-top: 19px;
     background: #ECECEC;
     border-radius: 2px;
 
