@@ -2,8 +2,22 @@
 // /* TEMPLATE: api-check-box */
 .dc-api-check-box {
     margin-top: 20px;
-    @include media-breakpoint-down (sm) {
 
+    &__wrapper {
+        display: flex;
+        margin: 11px 0px;
+    }
+
+    &__input {
+        label {
+            padding: 0.4rem 1rem 0.4rem 0px;
+        }
+        &:last-child {
+            margin-left: 3px;
+        }
+    }
+
+    @include media-breakpoint-down (sm) {
     }
 }
 // /* /TEMPLATE: api-check-box */

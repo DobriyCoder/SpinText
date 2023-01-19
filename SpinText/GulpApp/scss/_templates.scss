@@ -2,8 +2,22 @@
 // /* TEMPLATE: api-check-box */
 .dc-api-check-box {
     margin-top: 20px;
-    @include media-breakpoint-down (sm) {
 
+    &__wrapper {
+        display: flex;
+        margin: 11px 0px;
+    }
+
+    &__input {
+        label {
+            padding: 0.4rem 1rem 0.4rem 0px;
+        }
+        &:last-child {
+            margin-left: 3px;
+        }
+    }
+
+    @include media-breakpoint-down (sm) {
     }
 }
 // /* /TEMPLATE: api-check-box */
@@ -134,6 +148,7 @@
     }
 
     &__arrow {
+        margin-left: 13px;
         transform: rotate(-180deg);
         transition: transform 1s;
     }
@@ -155,6 +170,11 @@
     margin-top: 20px;
     background: #ECECEC;
     border-radius: 2px;
+
+    &__item {
+        height: 100%;
+        background: url('../../assets/line.jpg');
+    }
 
     @include media-breakpoint-down (sm) {
     }

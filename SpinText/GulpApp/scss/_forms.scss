@@ -344,9 +344,8 @@ textarea {
     }
 
     &:focus {
-        border: 1px solid #ECECEC;
-        outline: none !important;
-        box-shadow: 0 0 10px #719ECE;
+        border: 1px solid #719ECE;
+        outline: none;
     }
 }
 /* /[type="text"], [type="email"], [type="password"], textarea, select */
