@@ -73,7 +73,7 @@ jQuery('.dc-currency-pairs').dcTpl(function ($, Export) {
 // drop-down-block
 jQuery('.dc-drop-down-block').dcTpl(function ($, Export) {
     var $self = $(this);
-    var deg = -180;
+    var deg = 0;
     $self.on('click', '.dcj-toggle-btn', function (e) {
         e.preventDefault();
         $self.find(".dc-drop-down-block__content").stop().animate({ "height": "toggle" });
