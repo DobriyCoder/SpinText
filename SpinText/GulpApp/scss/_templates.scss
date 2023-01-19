@@ -55,6 +55,7 @@
         position: absolute;
         top: 35px;
         right: 20px;
+        cursor: pointer;
     }
 
     @include media-breakpoint-down (sm) {

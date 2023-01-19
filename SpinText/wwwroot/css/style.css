@@ -4812,6 +4812,7 @@ textarea:focus {
   position: absolute;
   top: 35px;
   right: 20px;
+  cursor: pointer;
 }
 .dc-ctrl-blocks-btns {
   display: flex;
