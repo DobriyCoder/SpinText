@@ -18,7 +18,11 @@
     &__close {
         display: flex;
         align-items: center;
-/*        cursor: pointer;*/
+    }
+
+    &__arrow {
+        transform: rotate(-180deg);
+        transition: transform 1s;
     }
 
 

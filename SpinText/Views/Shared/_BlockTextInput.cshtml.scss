@@ -1,9 +1,15 @@
 // /*.....................................*/
 // /* TEMPLATE: block-text-input */
 .dc-block-text-input {
+    position: relative;
+
+    &__close {
+        position: absolute;
+        top: 40px;
+        right: 25px;
+    }
 
     @include media-breakpoint-down (sm) {
-
     }
 }
 // /* /TEMPLATE: block-text-input */

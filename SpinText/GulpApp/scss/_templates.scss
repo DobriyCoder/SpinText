@@ -35,9 +35,15 @@
 // /*.....................................*/
 // /* TEMPLATE: block-text-input */
 .dc-block-text-input {
+    position: relative;
+
+    &__close {
+        position: absolute;
+        top: 40px;
+        right: 25px;
+    }
 
     @include media-breakpoint-down (sm) {
-
     }
 }
 // /* /TEMPLATE: block-text-input */
@@ -125,7 +131,11 @@
     &__close {
         display: flex;
         align-items: center;
-/*        cursor: pointer;*/
+    }
+
+    &__arrow {
+        transform: rotate(-180deg);
+        transition: transform 1s;
     }
 
 

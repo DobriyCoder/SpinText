@@ -4311,7 +4311,7 @@ a:hover {
 .dcg-section {
   width: 1078px;
   margin: 0 auto;
-  padding-top: 35px;
+  padding: 35px 0px;
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
 }
@@ -4716,12 +4716,15 @@ textarea {
   resize: none;
 }
 textarea.dcg-textarea {
-  width: 1008px;
+  width: 100%;
   min-height: 165px;
   padding: 16px 21px 0px 21px;
   border: 1px solid #ECECEC;
   border-radius: 2px;
   margin-top: 15px;
+}
+textarea.dcg-textarea_padding-right {
+  padding-right: 57px;
 }
 textarea:focus {
   border: 1px solid #ECECEC;
@@ -4742,6 +4745,14 @@ textarea:focus {
 }
 .dc-blocks-main {
   padding-top: 20px;
+}
+.dc-block-text-input {
+  position: relative;
+}
+.dc-block-text-input__close {
+  position: absolute;
+  top: 40px;
+  right: 25px;
 }
 .dc-ctrl-blocks-btns {
   display: flex;
@@ -4787,7 +4798,10 @@ textarea:focus {
 .dc-drop-down-block__close {
   display: flex;
   align-items: center;
-  /*        cursor: pointer;*/
+}
+.dc-drop-down-block__arrow {
+  transform: rotate(-180deg);
+  transition: transform 1s;
 }
 .dc-progress-bar {
   width: 1008px;

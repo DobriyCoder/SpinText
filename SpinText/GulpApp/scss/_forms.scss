@@ -331,12 +331,16 @@ textarea {
     resize: none;
 
     &.dcg-textarea {
-        width: 1008px;
+        width: 100%;
         min-height: 165px;
         padding: 16px 21px 0px 21px;
         border: 1px solid #ECECEC;
         border-radius: 2px;
         margin-top: 15px;
+
+        &_padding-right {
+            padding-right: 57px;
+        }
     }
 
     &:focus {

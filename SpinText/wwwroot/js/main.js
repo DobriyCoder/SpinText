@@ -73,7 +73,7 @@ jQuery('.dc-currency-pairs').dcTpl(function ($, Export) {
 // drop-down-block
 jQuery('.dc-drop-down-block').dcTpl(function ($, Export) {
     var $self = $(this);
-    var deg = 0;
+    var deg = -180;
     $self.on('click', '.dcj-toggle-btn', function (e) {
         e.preventDefault();
         $self.find(".dc-drop-down-block__content").stop().animate({ "height": "toggle" });
@@ -81,7 +81,7 @@ jQuery('.dc-drop-down-block').dcTpl(function ($, Export) {
             deg -= 180;
             $self.find(".dc-drop-down-block__arrow").css({
                 transform: 'rotate(' + deg + 'deg)',
-                transition: "transform 1s"
+                
             })
         } else {
             deg = 0;
