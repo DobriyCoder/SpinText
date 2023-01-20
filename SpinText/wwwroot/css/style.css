@@ -4485,6 +4485,16 @@ a:hover {
 /*------------------------------------------------------------*/
 /* PAGE */
 /* Главный блок всех страниц */
+.dc-main {
+  padding-top: 180px;
+  padding-bottom: 20px;
+}
+@media (max-width: 889.98px) {
+  .dc-main {
+    padding-top: 20px;
+  }
+}
+
 /* /Главный блок всех страниц */
 /*.....................................*/
 /* Главный блок главной страницы */
@@ -4808,6 +4818,9 @@ textarea:focus {
 .dc-block-text-input {
   position: relative;
 }
+.dc-block-text-input:first-child .dc-block-text-input__close {
+  display: none;
+}
 .dc-block-text-input__close {
   position: absolute;
   top: 35px;
@@ -4848,14 +4861,10 @@ textarea:focus {
 }
 
 .dc-ctrl-language {
-  height: 109px;
-  margin-top: 20px;
   padding: 20px 0;
-  border-top: 1px solid #ECECEC;
   border-bottom: 1px solid #ECECEC;
 }
 .dc-currency-pairs {
-  min-height: 254px;
   padding: 20px 0px 35px 0px;
   border-top: 1px solid #ECECEC;
   border-bottom: 1px solid #ECECEC;
@@ -4884,25 +4893,24 @@ textarea:focus {
 .dc-header {
   position: fixed;
   background-color: white;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1;
 }
+.dc-header__content {
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+@media (max-width: 889.98px) {
+  .dc-header {
+    position: static;
+  }
+}
+
 .dc-page-title {
   display: flex;
   justify-content: space-between;
-}
-.dc-page-title__title {
-  display: inline-block;
-}
-.dc-page-title__item-caption {
-  display: inline-block;
-}
-.dc-page-title__list-count {
-  display: inline-block;
-}
-.dc-page-title__item-count {
-  display: inline-block;
-}
-.dc-page-title__item-count:not(last-child) {
-  margin-right: 15px;
 }
 @media (max-width: 889.98px) {
   .dc-page-title {
@@ -4920,6 +4928,19 @@ textarea:focus {
 .dc-progress-bar__item {
   height: 100%;
   background: url("../../assets/line.jpg");
+}
+.dc-status-bar {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.dc-status-bar__item {
+  display: flex;
+  gap: 5px;
+}
+.dc-status-bar__caption {
+  font-weight: bold;
 }
 /*.....................................*/
 /* TEMPLATE: classes */

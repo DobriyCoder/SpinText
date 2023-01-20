@@ -1,5 +1,11 @@
 ﻿@model IPartialModel
 
 <div class="dc-header @Model.Cls" @Model.Attrs>
-    @Model.Content
+    <div class="container">
+        <div class="dc-header__content dcg-container">
+            <tpl :PageTitle />
+            <tpl :ProgressBar />
+            <tpl :CtrlBtn />
+        </div>
+    </div>
 </div>

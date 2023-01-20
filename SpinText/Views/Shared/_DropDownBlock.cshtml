@@ -3,16 +3,19 @@
 <div class="dc-drop-down-block @Model.Cls" @Model.Attrs>
     <div class="dcj-toggle-btn">
         <div class="dc-drop-down-block__wrapper">
-            <h2 class="dcg-h2">
-                Block 1
-            </h2>
+            <h2 class="dcg-h2">Block 1</h2>
             <img class="dc-drop-down-block__arrow" src="~/assets/arrow.svg" alt="arrow">
         </div>
-        <div class="dc-drop-down-block__close">
+        <a class="dc-drop-down-block__close">
             <img src="~/assets/close.svg" alt="close">
-        </div>
+        </a>
     </div>
     <div class="dc-drop-down-block__content">
-        @Model.Content
+        <tpl :BlockBtns />
+
+        <div class="dc-drop-down-block__templates">
+            <tpl :BlockTextInput />
+            <tpl :BlockTextInput />
+        </div>
     </div>
 </div>

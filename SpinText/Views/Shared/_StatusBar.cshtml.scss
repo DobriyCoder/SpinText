@@ -1,0 +1,24 @@
+// /*.....................................*/
+// /* TEMPLATE: status-bar */
+.dc-status-bar {
+    display: flex;
+    gap: 20px;
+
+    &__item {
+        display: flex;
+        gap: 5px;
+    }
+    &__caption {
+        font-weight: bold;
+    }
+    &__value {
+
+    }
+
+    @include media-breakpoint-down (lb) {
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+}
+// /* /TEMPLATE: status-bar */
+// /*.....................................*/

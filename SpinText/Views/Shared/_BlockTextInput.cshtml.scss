@@ -3,6 +3,10 @@
 .dc-block-text-input {
     position: relative;
 
+    &:first-child &__close {
+        display: none;
+    }
+
     &__close {
         position: absolute;
         top: 35px;

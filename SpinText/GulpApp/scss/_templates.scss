@@ -51,6 +51,10 @@
 .dc-block-text-input {
     position: relative;
 
+    &:first-child &__close {
+        display: none;
+    }
+
     &__close {
         position: absolute;
         top: 35px;
@@ -121,10 +125,7 @@
 // /*.....................................*/
 // /* TEMPLATE: ctrl-language */
 .dc-ctrl-language {
-    height: 109px;
-    margin-top: 20px;
     padding: 20px 0;
-    border-top: 1px solid #ECECEC;
     border-bottom: 1px solid #ECECEC;
 
     @include media-breakpoint-down (sm) {
@@ -136,7 +137,6 @@
 // /*.....................................*/
 // /* TEMPLATE: currency-pairs */
 .dc-currency-pairs {
-    min-height: 254px;
     padding: 20px 0px 35px 0px;
     border-top: 1px solid #ECECEC;
     border-bottom: 1px solid #ECECEC;
@@ -184,13 +184,33 @@
 // /*.....................................*/
 
 // /*.....................................*/
+// /* TEMPLATE: generatingform */
+.dc-generatingform {
+
+    @include media-breakpoint-down (sm) {
+
+    }
+}
+// /* /TEMPLATE: generatingform */
+// /*.....................................*/
+
+// /*.....................................*/
 // /* TEMPLATE: header */
 .dc-header {
     position: fixed;
     background-color: white;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1;
+
+    &__content {
+        padding-top: 30px;
+        padding-bottom: 30px;
+    }
 
     @include media-breakpoint-down (lg) {
-       
+       position: static;
     }
 }
 // /* /TEMPLATE: header */
@@ -201,27 +221,7 @@
 .dc-page-title {
     display: flex;
     justify-content: space-between;
-
-    &__title {
-        display: inline-block;
-    }
-
-    &__item-caption {
-        display: inline-block;
-    }
-
-    &__list-count {
-        display: inline-block;
-    }
-
-    &__item-count {
-        display: inline-block;
-    }
-
-    &__item-count:not(last-child) {
-        margin-right: 15px;
-    }
-
+    
     @include media-breakpoint-down (lg) {
         & {
             flex-direction: column;
@@ -249,6 +249,31 @@
     }
 }
 // /* /TEMPLATE: progress-bar */
+// /*.....................................*/
+
+// /*.....................................*/
+// /* TEMPLATE: status-bar */
+.dc-status-bar {
+    display: flex;
+    gap: 20px;
+
+    &__item {
+        display: flex;
+        gap: 5px;
+    }
+    &__caption {
+        font-weight: bold;
+    }
+    &__value {
+
+    }
+
+    @include media-breakpoint-down (lb) {
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+}
+// /* /TEMPLATE: status-bar */
 // /*.....................................*/
 
 /*.....................................*/

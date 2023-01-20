@@ -37,7 +37,19 @@ jQuery('.dc-blocks-main').dcTpl(function ($, Export) {
 
 // block-text-input
 jQuery('.dc-block-text-input').dcTpl(function ($, Export) {
-   var $self = $(this);
+    var $self = $(this);
+
+    $self.on('click', '.dc-block-text-input__close', function (e) {
+        e.preventDefault();
+
+        $self.slideUp(function () {
+            $self.remove();
+        });
+    });
+
+    Export.clear = function () {
+        $self.find('.dc-block-text-input__input').val("");
+    };
 });
 // /block-text-input
 //--------------------------------------------
@@ -96,6 +108,13 @@ jQuery('.dc-drop-down-block').dcTpl(function ($, Export) {
 // /drop-down-block
 //--------------------------------------------
 
+// generatingform
+jQuery('.dc-generatingform').dcTpl(function ($, Export) {
+   var $self = $(this);
+});
+// /generatingform
+//--------------------------------------------
+
 // header
 jQuery('.dc-header').dcTpl(function ($, Export) {
    var $self = $(this);
@@ -115,4 +134,11 @@ jQuery('.dc-progress-bar').dcTpl(function ($, Export) {
    var $self = $(this);
 });
 // /progress-bar
+//--------------------------------------------
+
+// status-bar
+jQuery('.dc-status-bar').dcTpl(function ($, Export) {
+   var $self = $(this);
+});
+// /status-bar
 //--------------------------------------------
