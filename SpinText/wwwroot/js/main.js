@@ -96,6 +96,20 @@ jQuery('.dc-drop-down-block').dcTpl(function ($, Export) {
 // /drop-down-block
 //--------------------------------------------
 
+// header
+jQuery('.dc-header').dcTpl(function ($, Export) {
+   var $self = $(this);
+});
+// /header
+//--------------------------------------------
+
+// page-title
+jQuery('.dc-page-title').dcTpl(function ($, Export) {
+   var $self = $(this);
+});
+// /page-title
+//--------------------------------------------
+
 // progress-bar
 jQuery('.dc-progress-bar').dcTpl(function ($, Export) {
    var $self = $(this);

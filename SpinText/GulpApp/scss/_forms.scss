@@ -28,7 +28,7 @@
             }
         }
 
-        &_disabled {
+        &_disabled, &[disabled] {
             &:active, &:hover {
                 box-shadow: none;
             }

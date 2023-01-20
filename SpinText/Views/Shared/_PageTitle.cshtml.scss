@@ -1,0 +1,35 @@
+// /*.....................................*/
+// /* TEMPLATE: page-title */
+.dc-page-title {
+    display: flex;
+    justify-content: space-between;
+
+    &__title {
+        display: inline-block;
+    }
+
+    &__item-caption {
+        display: inline-block;
+    }
+
+    &__list-count {
+        display: inline-block;
+    }
+
+    &__item-count {
+        display: inline-block;
+    }
+
+    &__item-count:not(last-child) {
+        margin-right: 15px;
+    }
+
+    @include media-breakpoint-down (lg) {
+        & {
+            flex-direction: column;
+            gap: 15px;
+        }
+    }
+}
+// /* /TEMPLATE: page-title */
+// /*.....................................*/

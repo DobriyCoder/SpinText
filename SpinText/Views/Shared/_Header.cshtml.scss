@@ -1,0 +1,12 @@
+// /*.....................................*/
+// /* TEMPLATE: header */
+.dc-header {
+    position: fixed;
+    background-color: white;
+
+    @include media-breakpoint-down (lg) {
+       
+    }
+}
+// /* /TEMPLATE: header */
+// /*.....................................*/

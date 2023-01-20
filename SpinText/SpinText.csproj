@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="DobriyCoder.Asp" Version="1.1.1" />
-    <PackageReference Include="DobriyCoder.Core" Version="1.1.0" />
+    <PackageReference Include="DobriyCoder.Asp" Version="1.1.0" />
+    <PackageReference Include="DobriyCoder.Core" Version="1.0.15" />
   </ItemGroup>
 
 </Project>
