@@ -6,9 +6,9 @@
     margin-top: 20px;
 
     &__wrapper {
-        width: 320px;
         display: flex;
         flex-wrap: wrap;
+        gap: 10px;
         justify-content: space-between;
     }
 

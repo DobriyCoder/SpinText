@@ -4838,9 +4838,9 @@ textarea:focus {
   margin-top: 20px;
 }
 .dc-ctrl-btn__wrapper {
-  width: 320px;
   display: flex;
   flex-wrap: wrap;
+  gap: 10px;
   justify-content: space-between;
 }
 @media (max-width: 889.98px) {
@@ -4872,6 +4872,9 @@ textarea:focus {
 .dc-drop-down-block {
   min-height: 49px;
   margin-top: 6px;
+}
+.dc-drop-down-block:first-child .dc-drop-down-block__close {
+  display: none;
 }
 .dc-drop-down-block__wrapper {
   height: 100%;

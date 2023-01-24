@@ -4,6 +4,10 @@
     min-height: 49px;
     margin-top: 6px;
 
+    &:first-child &__close {
+        display: none;
+    }
+
     &__wrapper {
         height: 100%;
         display: flex;

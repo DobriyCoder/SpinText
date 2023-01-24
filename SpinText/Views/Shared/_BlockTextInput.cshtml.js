@@ -5,13 +5,17 @@ jQuery('.dc-block-text-input').dcTpl(function ($, Export) {
     $self.on('click', '.dc-block-text-input__close', function (e) {
         e.preventDefault();
 
-        $self.slideUp(function () {
-            $self.remove();
-        });
+        Export.remove();
     });
 
     Export.clear = function () {
         $self.find('.dc-block-text-input__input').val("");
+    };
+
+    Export.remove = function () {
+        $self.slideUp(function () {
+            $self.remove();
+        });
     };
 });
 // /block-text-input

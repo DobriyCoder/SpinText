@@ -27,6 +27,11 @@ jQuery.fn.dcTpl = function (Callback, UserConf) {
     //...................................
     function setEvents () {
         $.dc.f.ready(Css, onReady, Conf);
+
+        $('body').on('ready', Css, function (e) {
+            e.stopPropagation();
+            onReady.call(this);
+        });
     }
     //...................................
     // /INIT
@@ -36,7 +41,7 @@ jQuery.fn.dcTpl = function (Callback, UserConf) {
     // /PUBLIC
     //--------------------------------------------
     // EVENTS
-    function onReady () {
+    function onReady() {
         Callback.call(this, $, getTpl.call(this));
         getTpl.call(this).trigger('on_ready');
     }
@@ -44,7 +49,7 @@ jQuery.fn.dcTpl = function (Callback, UserConf) {
     // /EVENTS
     //--------------------------------------------
     // PRIVATE
-    function addTpl () {
+    function addTpl() {
         var $self = $(this);
         var self = $self[0];
         self.dc = self.dc || {};

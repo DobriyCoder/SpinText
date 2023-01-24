@@ -89,9 +89,9 @@
     margin-top: 20px;
 
     &__wrapper {
-        width: 320px;
         display: flex;
         flex-wrap: wrap;
+        gap: 10px;
         justify-content: space-between;
     }
 
@@ -152,6 +152,10 @@
 .dc-drop-down-block {
     min-height: 49px;
     margin-top: 6px;
+
+    &:first-child &__close {
+        display: none;
+    }
 
     &__wrapper {
         height: 100%;
