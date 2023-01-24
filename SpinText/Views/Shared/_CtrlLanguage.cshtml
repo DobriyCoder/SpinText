@@ -1,18 +1,13 @@
-﻿@model IPartialModel
+﻿@using SpinText.Languages.Models;
+@model IPartialModel
+
+@{
+    HomeModel _model = (HomeModel)ViewBag.HomeModel;
+}
 
 <div class="dc-ctrl-language @Model.Cls" @Model.Attrs>
     <h2 class="dcg-h2">
         Language
     </h2>
-   <select>
-        <option value="ua">
-            <span>Eng</span>
-        </option>
-        <option value="en">
-            <span>Ukr</span>
-        </option>
-        <option value="ru">
-            <span>Ru</span>
-        </option>
-    </select>
+    <select name="Language" asp-for="@_model.Language.Current" asp-items="Html.GetEnumSelectList<ELanguage>()"></select>
 </div>

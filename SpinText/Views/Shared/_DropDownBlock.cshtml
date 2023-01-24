@@ -1,4 +1,4 @@
-﻿@model IPartialModel
+﻿@model DropDownBlock
 
 <div class="dc-drop-down-block @Model.Cls" @Model.Attrs>
     <div class="dcj-toggle-btn">
@@ -14,7 +14,17 @@
         <tpl :BlockBtns />
 
         <div class="dc-drop-down-block__templates dcj-tmp-wrapper">
-            <tpl :BlockTextInput />
+            @if (!Model.Templates.Any())
+            {
+                <tpl :BlockTextInput model="new BlockTextInput()" />
+            }
+            else
+            {
+                foreach (var tmp in Model.Templates)
+                {
+                    <tpl :BlockTextInput model="tmp" />
+                }
+            }
         </div>
     </div>
 </div>

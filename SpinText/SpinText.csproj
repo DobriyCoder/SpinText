@@ -9,6 +9,7 @@
   <ItemGroup>
     <PackageReference Include="DobriyCoder.Asp" Version="1.1.0" />
     <PackageReference Include="DobriyCoder.Core" Version="1.0.15" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="7.0.0" />
   </ItemGroup>
 
 </Project>

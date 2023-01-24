@@ -1,4 +1,7 @@
 ﻿@model IPartialModel
+@{
+    var _model = (HomeModel)ViewBag.HomeModel;
+}
 
 <div class="dc-blocks-main @Model.Cls" @Model.Attrs>
     <h2 class="dcg-h2">Blocks</h2>
@@ -6,7 +9,16 @@
     <tpl :CtrlBlocksBtns />
 
     <div class="dc-blocks-main__blocks dcj-blocks">
-        <tpl :DropDownBlock />
-        <tpl :DropDownBlock />
+        @if (!_model.Blocks.Blocks.Any())
+        {
+            <tpl :DropDownBlock model="new DropDownBlock()" />
+        }
+        else
+        {
+            foreach (var block in _model.Blocks.Blocks)
+            {
+                <tpl :DropDownBlock model="block" />
+            }
+        }
     </div>
 </div>

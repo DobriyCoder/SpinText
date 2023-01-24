@@ -20,8 +20,16 @@ jQuery('.dc-blocks-main').dcTpl(function ($, Export) {
         $block.find('.dc-block-btns').trigger('ready');
         $block.dcTpl().clear();
         $block.dcTpl().removeTemplates();
+        Export.actualizeTemplatesNames();
         $block.show();
     });
+
+    Export.actualizeTemplatesNames = function () {
+        $self.find('.dc-drop-down-block').each(function (i) {
+            $(this).find('.dcj-tpl').attr('name', 'Blocks['+i+'][]');
+        });
+    };
+    Export.actualizeTemplatesNames();
 });
 // /blocks-main
 //--------------------------------------------

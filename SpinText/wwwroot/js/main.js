@@ -60,8 +60,16 @@ jQuery('.dc-blocks-main').dcTpl(function ($, Export) {
         $block.find('.dc-block-btns').trigger('ready');
         $block.dcTpl().clear();
         $block.dcTpl().removeTemplates();
+        Export.actualizeTemplatesNames();
         $block.show();
     });
+
+    Export.actualizeTemplatesNames = function () {
+        $self.find('.dc-drop-down-block').each(function (i) {
+            $(this).find('.dcj-tpl').attr('name', 'Blocks['+i+'][]');
+        });
+    };
+    Export.actualizeTemplatesNames();
 });
 // /blocks-main
 //--------------------------------------------
@@ -113,7 +121,12 @@ jQuery('.dc-ctrl-btn').dcTpl(function ($, Export) {
 
 // ctrl-language
 jQuery('.dc-ctrl-language').dcTpl(function ($, Export) {
-   var $self = $(this);
+    var $self = $(this);
+
+    $self.on('change', 'select', function () {
+        var val = $(this).val();
+        document.location.href = '?lang=' + val;
+    });
 });
 // /ctrl-language
 //--------------------------------------------

@@ -1,6 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DobriyCoder.Core.Exceptions;
+using Microsoft.AspNetCore.Mvc;
+using SpinText.Blocks.DB;
+using SpinText.Blocks.Services;
 using SpinText.Languages.Models;
+using SpinText.Languages.Services;
 using SpinText.Models;
+using SpinText.ViewModels;
 using System.Diagnostics;
 
 namespace SpinText.Controllers
@@ -14,9 +19,20 @@ namespace SpinText.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index(ELanguage? lang)
+        public IActionResult Index(ELanguage? lang
+            , [FromServices] LanguagesManager lang_manager
+            , [FromServices] BlocksManager blocks_manager)
         {
-            return View();
+            lang = lang ?? lang_manager.GetDefaultLanguage();
+
+            var model = new HomeModel(lang.Value)
+            {
+                Blocks = new BlocksMain(blocks_manager.GetBlocks(lang.Value))
+            };
+
+            ViewBag.HomeModel = model;
+
+            return View(model);
         }
         public IActionResult ExportHT()
         {
@@ -25,6 +41,31 @@ namespace SpinText.Controllers
         public IActionResult GetBlocks(ELanguage lang)
         {
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult SaveBlocks(
+            FormBlocksData data,
+            [FromServices] BlocksManager blocks)
+        {
+            List<BlockData> db_data = new List<BlockData>();
+
+            for (int i = 0; i < data.Blocks.Count; i++)
+            {
+                foreach(var tpl in data.Blocks[i])
+                {
+                    db_data.Add(new BlockData()
+                    {
+                        Language = data.Language,
+                        BlockIndex = (byte)i,
+                        Template = tpl,
+                    });
+                }
+            }
+
+            blocks.SaveBlocks(data.Language, db_data);
+
+            return RedirectToAction("Index");
         }
         public IActionResult AddHT(string urls)
         {

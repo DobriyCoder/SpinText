@@ -6,6 +6,6 @@ public class LanguagesManager
 {
     public ELanguage GetDefaultLanguage()
     {
-        return default(ELanguage);
+        return ELanguage.English;
     }
 }

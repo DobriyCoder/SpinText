@@ -4,8 +4,14 @@ namespace SpinText.ViewModels;
 
 public class HomeModel
 {
-    public HomeModel(ELanguage? lang)
-    {
+    public CtrlLanguage Language { get; set; }
+    public BlocksMain Blocks { get; set; }
 
+    public HomeModel(ELanguage lang)
+    {
+        Language = new CtrlLanguage()
+        {
+            Current = lang
+        };
     }
 }

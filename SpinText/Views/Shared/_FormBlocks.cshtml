@@ -1,7 +1,7 @@
 ﻿@model IPartialModel
 
 <div class="dc-form-blocks @Model.Cls" @Model.Attrs>
-    <form>
+    <form asp-action="SaveBlocks" method="post">
         <tpl :BlocksMain />
     </form>
 </div>
