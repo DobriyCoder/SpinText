@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SpinText.Languages.Models;
 using SpinText.Models;
 using System.Diagnostics;
 
@@ -13,10 +14,33 @@ namespace SpinText.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(ELanguage? lang)
         {
             return View();
         }
+        public IActionResult ExportHT()
+        {
+            return View();
+        }
+        public IActionResult GetBlocks(ELanguage lang)
+        {
+            return View();
+        }
+        public IActionResult AddHT(string urls)
+        {
+            return View();
+        }
+        public IActionResult GetHTGeneratingStatus()
+        {
+            return View();
+        }
+        public IActionResult GetHTGeneratedLog()
+        {
+            return View();
+        }
+
+
+
 
         public IActionResult Privacy()
         {

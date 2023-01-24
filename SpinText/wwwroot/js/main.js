@@ -60,7 +60,7 @@ jQuery('.dc-blocks-main').dcTpl(function ($, Export) {
         $block.find('.dc-block-btns').trigger('ready');
         $block.dcTpl().clear();
         $block.dcTpl().removeTemplates();
-        $block.slideDown();
+        $block.show();
     });
 });
 // /blocks-main
@@ -81,9 +81,7 @@ jQuery('.dc-block-text-input').dcTpl(function ($, Export) {
     };
 
     Export.remove = function () {
-        $self.slideUp(function () {
-            $self.remove();
-        });
+        $self.remove();
     };
 });
 // /block-text-input
@@ -168,7 +166,7 @@ jQuery('.dc-drop-down-block').dcTpl(function ($, Export) {
         $wrapper.prepend($block);
         $block.trigger('ready');
         $block.dcTpl().clear();
-        $block.slideDown();
+        $block.show();
     });
 
     Export.clear = function () {
@@ -178,9 +176,7 @@ jQuery('.dc-drop-down-block').dcTpl(function ($, Export) {
     };
 
     Export.remove = function () {
-        $self.slideUp(function () {
-            $self.remove();
-        });
+        $self.remove();
     };
 
     Export.removeTemplates = function () {
@@ -195,6 +191,13 @@ jQuery('.dc-drop-down-block').dcTpl(function ($, Export) {
     };
 });
 // /drop-down-block
+//--------------------------------------------
+
+// form-blocks
+jQuery('.dc-form-blocks').dcTpl(function ($, Export) {
+   var $self = $(this);
+});
+// /form-blocks
 //--------------------------------------------
 
 // generatingform

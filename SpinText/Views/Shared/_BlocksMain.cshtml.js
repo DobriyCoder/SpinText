@@ -20,7 +20,7 @@ jQuery('.dc-blocks-main').dcTpl(function ($, Export) {
         $block.find('.dc-block-btns').trigger('ready');
         $block.dcTpl().clear();
         $block.dcTpl().removeTemplates();
-        $block.slideDown();
+        $block.show();
     });
 });
 // /blocks-main

@@ -1,10 +1,14 @@
 ﻿@model IPartialModel
 
 <div class="dc-ctrl-blocks-btns @Model.Cls" @Model.Attrs>
-    <button class="dcj-add-block">
-        Add block
-    </button>
-    <button class="dcg-btn_red dcj-clear">
-        Clear
-    </button>
+    <button type="submit">Save</button>
+
+    <div class="dc-ctrl-blocks-btns__edit">
+        <button class="dcj-add-block">
+            Add block
+        </button>
+        <button class="dcg-btn_red dcj-clear">
+            Clear
+        </button>
+    </div>
 </div>

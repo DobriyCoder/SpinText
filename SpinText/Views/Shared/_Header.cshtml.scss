@@ -1,20 +1,13 @@
 // /*.....................................*/
 // /* TEMPLATE: header */
 .dc-header {
-    position: fixed;
-    background-color: white;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1;
-
     &__content {
         padding-top: 30px;
         padding-bottom: 30px;
     }
 
     @include media-breakpoint-down (lg) {
-       position: static;
+
     }
 }
 // /* /TEMPLATE: header */

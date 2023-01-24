@@ -39,7 +39,7 @@ jQuery('.dc-drop-down-block').dcTpl(function ($, Export) {
         $wrapper.prepend($block);
         $block.trigger('ready');
         $block.dcTpl().clear();
-        $block.slideDown();
+        $block.show();
     });
 
     Export.clear = function () {
@@ -49,9 +49,7 @@ jQuery('.dc-drop-down-block').dcTpl(function ($, Export) {
     };
 
     Export.remove = function () {
-        $self.slideUp(function () {
-            $self.remove();
-        });
+        $self.remove();
     };
 
     Export.removeTemplates = function () {

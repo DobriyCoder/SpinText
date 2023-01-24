@@ -2,11 +2,10 @@
 /* PAGE */
 /* Главный блок всех страниц */
 .dc-main {
-    padding-top: 180px;
     padding-bottom: 20px;
 
     @include media-breakpoint-down (lg) {
-        padding-top: 20px;
+
     }
 }
 .dc-page {

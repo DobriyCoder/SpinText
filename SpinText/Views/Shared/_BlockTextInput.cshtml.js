@@ -13,9 +13,7 @@ jQuery('.dc-block-text-input').dcTpl(function ($, Export) {
     };
 
     Export.remove = function () {
-        $self.slideUp(function () {
-            $self.remove();
-        });
+        $self.remove();
     };
 });
 // /block-text-input

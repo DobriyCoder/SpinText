@@ -74,6 +74,11 @@
     display: flex; 
     justify-content: space-between;
     margin-top: 20px;
+
+    &__edit {
+        display: flex;
+        gap: 10px;
+    }
     @include media-breakpoint-down (sm) {
 
     }
@@ -188,6 +193,17 @@
 // /*.....................................*/
 
 // /*.....................................*/
+// /* TEMPLATE: form-blocks */
+.dc-form-blocks {
+
+    @include media-breakpoint-down (sm) {
+
+    }
+}
+// /* /TEMPLATE: form-blocks */
+// /*.....................................*/
+
+// /*.....................................*/
 // /* TEMPLATE: generatingform */
 .dc-generatingform {
 
@@ -201,20 +217,13 @@
 // /*.....................................*/
 // /* TEMPLATE: header */
 .dc-header {
-    position: fixed;
-    background-color: white;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1;
-
     &__content {
         padding-top: 30px;
         padding-bottom: 30px;
     }
 
     @include media-breakpoint-down (lg) {
-       position: static;
+
     }
 }
 // /* /TEMPLATE: header */
@@ -260,6 +269,7 @@
 .dc-status-bar {
     display: flex;
     gap: 20px;
+    margin-top: 20px;
 
     &__item {
         display: flex;
