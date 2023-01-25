@@ -1,8 +1,10 @@
 ﻿@model IPartialModel
 
 <div class="dc-generatingform @Model?.Cls" @Model?.Attrs>
-    <tpl :CurrencyPairs />
-    <tpl :ProgressBar />
-    <tpl :StatusBar />
-    <tpl :CtrlBtn />
+    <form asp-action="AddHT">
+        <tpl :CurrencyPairs />
+        <tpl :ProgressBar />
+        <tpl :StatusBar />
+        <tpl :CtrlBtn />
+    </form>
 </div>
