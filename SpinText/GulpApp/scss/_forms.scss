@@ -13,30 +13,20 @@
     font-style: normal;
     font-weight: 400;
     font-size: 15px;
-    line-height: 18px;
+    line-height: 30px;
     color: #FFFFFF;
     padding: 0;
+    text-decoration: none;
+    text-align: center;
 
-
-
-    &.dcg-btn {
-        &_red {
-            background: #FF0909;
-
-            &:active, &:hover {
-                box-shadow: 0px 0px 10px rgba(255, 58, 58, 0.4);
-            }
+    &.dcg-btn_disabled, &[disabled] {
+        &:active, &:hover {
+            box-shadow: none;
         }
 
-        &_disabled, &[disabled] {
-            &:active, &:hover {
-                box-shadow: none;
-            }
-
-            opacity: 0.4;
-            cursor: not-allowed;
-
-            &:after {
+        opacity: 0.4;
+        cursor: not-allowed;
+        /*&:after {
                 content: '';
                 position: absolute;
                 bottom: -9px;
@@ -44,6 +34,15 @@
                 width: 18px;
                 height: 18px;
                 background: url('../../assets/disabled.svg');
+            }*/
+    }
+
+    &.dcg-btn {
+        &_red {
+            background: #FF0909;
+
+            &:active, &:hover {
+                box-shadow: 0px 0px 10px rgba(255, 58, 58, 0.4);
             }
         }
     }

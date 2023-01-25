@@ -1,6 +1,6 @@
 ﻿using SpinText.Languages.Models;
 
-namespace SpinText.HTProvider.DB;
+namespace SpinText.HT.DB;
 
 public class HTData
 {

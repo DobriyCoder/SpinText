@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using SpinText.Blocks.DB;
-using SpinText.HTProvider.DB;
+using SpinText.HT.DB;
 
 namespace SpinText.Models
 {
@@ -8,15 +9,16 @@ namespace SpinText.Models
     {
         public DbSet<BlockData> Blocks { get; set; }
         public DbSet<HTData> Templates { get; set; }
+
         public Db(DbContextOptions<Db> options)
         : base(options)
         {
             Database.EnsureCreated();
         }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        public Db(DbContextOptions options) : base(options)
         {
-            base.OnModelCreating(modelBuilder);
+            Database.EnsureCreated();
         }
     }
 }

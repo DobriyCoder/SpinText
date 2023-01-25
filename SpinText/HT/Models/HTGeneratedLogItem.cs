@@ -1,6 +1,6 @@
 ﻿using SpinText.Languages.Models;
 
-namespace SpinText.HTProvider.Models;
+namespace SpinText.HT.Models;
 
 public class HTGeneratedLogItem
 {

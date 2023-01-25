@@ -9,12 +9,11 @@ namespace SpinText.Blocks.Services;
 public class BlocksManager
 {
     Db _db;
-    DbSet<BlockData> _blocks;
+    DbSet<BlockData> _blocks => _db.Blocks;
 
-    public BlocksManager(Db db)
+    public BlocksManager(DBFactory db_factory)
     {
-        this._db = db;
-        this._blocks = db.Blocks;
+        this._db = db_factory.Create();
     }
 
     public IEnumerable<BlockData> GetBlocks(ELanguage lang)

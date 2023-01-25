@@ -1,5 +1,5 @@
-﻿using SpinText.HTProvider.DB;
-using SpinText.HTProvider.Models;
+﻿using SpinText.HT.DB;
+using SpinText.HT.Models;
 using System.IO;
 
 namespace SpinText.Exporter.Services;

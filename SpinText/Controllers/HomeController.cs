@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using SpinText.Blocks.DB;
 using SpinText.Blocks.Services;
+using SpinText.HT.Models;
+using SpinText.HT.Services;
 using SpinText.Languages.Models;
 using SpinText.Languages.Services;
 using SpinText.Models;
@@ -70,14 +72,15 @@ public class HomeController : Controller
 
     [HttpPost]
     public JsonResult AddHT(
-        FormAddHTData data)
+        FormAddHTData data,
+        [FromServices] HTProvider ht)
     {
-        data.PrintAsJson();
-        return new JsonResult(new { a = 234 });
+        HTGeneratingStatus status = ht.Add(data.Urls.Split('\n').Select(i => i.Trim()).Where(i => !String.IsNullOrEmpty(i)).ToArray());
+        return new JsonResult(status);
     }
-    public IActionResult GetHTGeneratingStatus()
+    public JsonResult GetHTGeneratingStatus([FromServices] HTProvider ht)
     {
-        return View();
+        return new JsonResult(ht.GetStatus());
     }
     public IActionResult GetHTGeneratedLog()
     {

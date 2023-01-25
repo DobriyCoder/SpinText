@@ -1,5 +1,5 @@
 ﻿using SpinText.Exporter.Models;
-using SpinText.HTProvider.Models;
+using SpinText.HT.Models;
 
 namespace SpinText.Models;
 

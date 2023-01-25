@@ -1,4 +1,4 @@
-﻿namespace SpinText.HTProvider.Models;
+﻿namespace SpinText.HT.Models;
 
 public class HTGeneratedLogData
 {
