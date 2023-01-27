@@ -8,7 +8,8 @@ namespace SpiningText.Models;
 
 public interface ISTVars
 {
-    public string? GetVar(string name);
+    string? GetVar(string name);
+    IEnumerable<string> GetVarNames();
 }
 public class STVars<T> : ISTVars
 {
@@ -17,6 +18,7 @@ public class STVars<T> : ISTVars
     public STVars(T data) => this._data = data;
 
     public string? GetVar(string name) => throw new NotImplementedException();
+    public IEnumerable<string> GetVarNames() => throw new NotImplementedException();
 }
 
 public class STVarsDictionary : Dictionary<string, string>, ISTVars
@@ -31,4 +33,5 @@ public class STVarsDictionary : Dictionary<string, string>, ISTVars
     public string GetVar(string name) => ContainsKey(name)
         ? this[name]
         : name;
+    public IEnumerable<string> GetVarNames() => Keys.ToList();
 }

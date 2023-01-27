@@ -33,6 +33,7 @@ public class HTProvider
     }
     public void Add(string key, Dictionary<string, string> vars)
     {
+        CreateStatus(1);
         var url_data = new UrlData(key, vars);
         AddAsync(new UrlData[] { url_data }).Wait();
     }
