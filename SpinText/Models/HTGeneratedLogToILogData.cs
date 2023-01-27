@@ -10,5 +10,15 @@ public class HTGeneratedLogToILogData : ILogData
     {
         _data = data;
     }
-    public List<string> Data { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+    public List<string> Data => _data.Items.Select(i => ItemToString(i)).ToList();
+    
+    public string ItemToString(HTGeneratedLogItem item)
+    {
+        var values = item
+            .GetType()
+            .GetProperties()
+            .Select(i => i.GetValue(item)?.ToString() ?? "");
+
+        return String.Join("\t| ", values);
+    }
 }

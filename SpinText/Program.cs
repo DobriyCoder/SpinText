@@ -23,7 +23,9 @@ builder.Services.AddControllersWithViews();
 });*/
 
 builder.Services.AddTransient<BlocksManager>();
-builder.Services.AddTransient<Exporter>();
+builder.Services.AddTransient<ExporterProvider>();
+builder.Services.AddTransient<IExportFile, CsvExportFile>();
+builder.Services.AddTransient<ILogFile, TxtLogFile>();
 builder.Services.AddTransient<IGenerator, Generator>();
 builder.Services.AddSingleton<HTProvider>();
 builder.Services.AddTransient<HTManager>();

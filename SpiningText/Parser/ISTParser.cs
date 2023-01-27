@@ -51,14 +51,96 @@ public class STParser : ISTParser
         {
             if (i.Groups.Count < 2) return i.Value;
 
-            var var_name = i.Groups[1].Value;
+            var math_line = i.Groups[1].Value;
 
-            return vars.GetVar(var_name) ?? i.Value;
+            return Calc(math_line, vars!);
         });
     }
-    public string Calc(string line)
+    public string Calc(string line, ISTVars vars)
     {
-        return line;
+        string result = Power(line, vars);
+        result = Mul(result, vars);
+        result = Div(result, vars);
+        result = Plus(result, vars);
+        result = Minus(result, vars);
+
+        return result;
+    }
+    public string Plus(string line, ISTVars vars)
+    {
+        Regex reg = new Regex(@"([a-zA-Z_0-9]*) *\+ *([a-zA-Z_0-9]*)");
+        
+        return reg.Replace(line, i =>
+        {
+            string name1 = i.Groups[1].Value;
+            string name2 = i.Groups[2].Value;
+
+            if (!float.TryParse(vars.GetVar(name1), out float var_1)) return i.Value;
+            if (!float.TryParse(vars.GetVar(name2), out float var_2)) return i.Value;
+
+            return (var_1 + var_2).ToString();
+        });
+    }
+    public string Minus(string line, ISTVars vars)
+    {
+        Regex reg = new Regex(@"([a-zA-Z_0-9]*) *- *([a-zA-Z_0-9]*)");
+
+        return reg.Replace(line, i =>
+        {
+            string name1 = i.Groups[1].Value;
+            string name2 = i.Groups[2].Value;
+
+            if (!float.TryParse(vars.GetVar(name1), out float var_1)) return i.Value;
+            if (!float.TryParse(vars.GetVar(name2), out float var_2)) return i.Value;
+
+            return (var_1 - var_2).ToString();
+        });
+    }
+    public string Mul(string line, ISTVars vars)
+    {
+        Regex reg = new Regex(@"([a-zA-Z_0-9]*) *\* *([a-zA-Z_0-9]*)");
+
+        return reg.Replace(line, i =>
+        {
+            string name1 = i.Groups[1].Value;
+            string name2 = i.Groups[2].Value;
+
+            if (!float.TryParse(vars.GetVar(name1), out float var_1)) return i.Value;
+            if (!float.TryParse(vars.GetVar(name2), out float var_2)) return i.Value;
+
+            return (var_1 * var_2).ToString();
+        });
+    }
+    public string Div(string line, ISTVars vars)
+    {
+        Regex reg = new Regex(@"([a-zA-Z_0-9]*) *\/ *([a-zA-Z_0-9]*)");
+
+        return reg.Replace(line, i =>
+        {
+            string name1 = i.Groups[1].Value;
+            string name2 = i.Groups[2].Value;
+
+            if (!float.TryParse(vars.GetVar(name1), out float var_1)) return i.Value;
+            if (!float.TryParse(vars.GetVar(name2), out float var_2)) return i.Value;
+            if (var_2 == 0) return i.Value;
+
+            return (var_1 / var_2).ToString();
+        });
+    }
+    public string Power(string line, ISTVars vars)
+    {
+        Regex reg = new Regex(@"([a-zA-Z_0-9]*) *\^ *([a-zA-Z_0-9]*)");
+
+        return reg.Replace(line, i =>
+        {
+            string name1 = i.Groups[1].Value;
+            string name2 = i.Groups[2].Value;
+
+            if (!float.TryParse(vars.GetVar(name1), out float var_1)) return i.Value;
+            if (!float.TryParse(vars.GetVar(name2), out float var_2)) return i.Value;
+
+            return Math.Pow(var_1, var_2).ToString();
+        });
     }
     public string? ParseSynonyms(string text, out IErrors errors)
     {

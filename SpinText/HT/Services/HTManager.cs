@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SpinText.HT.DB;
+using SpinText.Languages.Models;
 using SpinText.Models;
 
 namespace SpinText.HT.Services;
@@ -16,6 +17,13 @@ public class HTManager
     public IEnumerable<HTData> GetHTs()
     {
         return _htTable;
+    }
+    public HTData? GetHT(string page_key, ELanguage language)
+    {
+        return _htTable
+            .FirstOrDefault(
+                i => i.PageKey == page_key 
+                && i.Language == language);
     }
     public void AddHT(HTData data)
     {

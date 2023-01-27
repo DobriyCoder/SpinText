@@ -2,5 +2,5 @@
 
 public interface ILogData
 {
-    List<string> Data { get; set; }
+    List<string> Data { get; }
 }

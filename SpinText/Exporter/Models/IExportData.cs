@@ -2,5 +2,5 @@
 
 public interface IExportData
 {
-    List<List<string>> Data { get; set; }
+    List<List<string>> Data { get; }
 }

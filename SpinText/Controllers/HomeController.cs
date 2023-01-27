@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SpinText.Blocks.DB;
 using SpinText.Blocks.Services;
+using SpinText.Exporter.Services;
 using SpinText.HT.Models;
 using SpinText.HT.Services;
 using SpinText.Languages.Models;
@@ -36,9 +37,13 @@ public class HomeController : Controller
 
         return View(model);
     }
-    public IActionResult ExportHT()
+    public FileResult ExportHT(
+        [FromServices] HTManager ht,
+        [FromServices] ExporterProvider exporter)
     {
-        return View();
+        var hts = ht.GetHTs();
+        byte[] data = exporter.CreateExportHTFile(hts);
+        return File(data, "text/csv", "export.csv");
     }
     public IActionResult GetBlocks(ELanguage lang)
     {
@@ -56,6 +61,8 @@ public class HomeController : Controller
         {
             foreach(var tpl in data.Blocks[i])
             {
+                if (tpl == null) continue;
+
                 db_data.Add(new BlockData()
                 {
                     Language = data.Language,
@@ -82,13 +89,14 @@ public class HomeController : Controller
     {
         return new JsonResult(ht.GetStatus());
     }
-    public IActionResult GetHTGeneratedLog()
+    public FileResult GetHTGeneratedLog(
+        [FromServices] HTProvider ht,
+        [FromServices] ExporterProvider exporter)
     {
-        return View();
+        var log = ht.GetLastLog();
+        byte[] data = exporter.CreateLogFile(log);
+        return File(data, "text/txt", "log.txt");
     }
-
-
-
 
     public IActionResult Privacy()
     {

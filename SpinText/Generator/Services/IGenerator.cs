@@ -3,12 +3,14 @@ using SpiningText.Models;
 using SpiningText.Parser;
 using SpinText.Blocks.DB;
 using SpinText.HT.DB;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace SpinText.Generator.Services;
 
 public interface IGenerator
 {
-    IEnumerable<HTData> GenerateHT(string page_key, ISTVars data, IEnumerable<BlockData> blocks);
+    IEnumerable<HTData> GenerateHT(string page_key, ISTVars data, IEnumerable<BlockData> blocks, Action<HTData> on_ht);
+    string? GenerateContent(string content, ISTVars data, out IErrors errors);
 }
 
 public class Generator : IGenerator
@@ -19,7 +21,13 @@ public class Generator : IGenerator
     {
         _parser = parser;
     }
-    public IEnumerable<HTData> GenerateHT(string page_key, ISTVars data, IEnumerable<BlockData> blocks)
+
+    public string? GenerateContent(string content, ISTVars data, out IErrors errors)
+    {
+        return _parser.Parse(content, null, data, out errors);
+    }
+
+    public IEnumerable<HTData> GenerateHT(string page_key, ISTVars data, IEnumerable<BlockData> blocks, Action<HTData> on_ht)
     {
         var result = blocks.GroupBy(i => i.Language).Select(i =>
         {
@@ -35,12 +43,16 @@ public class Generator : IGenerator
             string? text = _parser.Parse(tpl, data, null, out IErrors errors);
             if (errors.IsErrors) return null;
 
-            return new HTData()
+            var result = new HTData()
             {
                 PageKey = page_key,
                 Language = i.Key,
                 Template = text!,
             };
+
+            on_ht(result);
+
+            return result;
         }).Where(i => i is not null);
 
         return result!;

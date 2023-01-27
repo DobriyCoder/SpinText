@@ -28,7 +28,7 @@ public class STVarsDictionary : Dictionary<string, string>, ISTVars
             Add(pair.Key, pair.Value);
         }
     }
-    public string? GetVar(string name) => ContainsKey(name)
+    public string GetVar(string name) => ContainsKey(name)
         ? this[name]
-        : null;
+        : name;
 }

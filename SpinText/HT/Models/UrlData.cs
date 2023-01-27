@@ -12,6 +12,11 @@ public class UrlData
         Data = new Dictionary<string, string>();
         ParseUrl(url);
     }
+    public UrlData(string key, Dictionary<string, string> vars)
+    {
+        Data = vars;
+        Data.Add("page_key", key);
+    }
     void ParseUrl(string url)
     {
         var url_parts = url.Split('?');
