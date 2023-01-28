@@ -23,11 +23,15 @@ public class HTProvider
         this._log = new HTGeneratedLogData();
     }
 
-    public HTGeneratingStatus Add(string[] urls)
+    public HTGeneratingStatus Add(IEnumerable<string> urls)
     {
-        var urls_data = GetUrlsData(urls);
-        CreateStatus(urls_data.Count());
-        Task.Run(() => AddAsync(urls_data));
+        CreateStatus(urls.Count());
+
+        Task.Run(async () =>
+        {
+            var urls_data = GetUrlsData(urls);
+            await AddAsync(urls_data);
+        });
 
         return GetStatus();
     }
@@ -40,18 +44,30 @@ public class HTProvider
     public async Task AddAsync(IEnumerable<UrlData> urls)
     {
         var blocks = _blocks.GetBlocks();
+        List<HTData> group = new List<HTData>();
+        int i = 1;
 
         foreach (var url in urls)
         {
             if (url.PageKey is null) continue;
 
             var vars = new STVarsDictionary(url.Data);
-
             var templates = _generator.GenerateHT(url.PageKey, vars, blocks, AddToLog);
 
-            _ht.AddHTs(templates.ToArray());
-            ChangeStatus();
+            group.AddRange(templates);
+            ChangeStatus(1);
+
+            if (i++ >= 227)
+            {
+                _ht.AddHTs(group);
+                group.Clear();
+                i = 0;
+            }
         }
+
+        _ht.AddHTs(group);
+        group.Clear();
+        //ChangeStatus(i + 1);
     }
     
     public HTGeneratingStatus CreateStatus(int max)
@@ -67,13 +83,13 @@ public class HTProvider
     {
         return _log;
     }
-    IEnumerable<UrlData> GetUrlsData(string[] urls)
+    IEnumerable<UrlData> GetUrlsData(IEnumerable<string> urls)
     {
         return urls.Select(i => new UrlData(i));
     }
-    void ChangeStatus()
+    void ChangeStatus(int count = 1)
     {
-        _status.Progress.Position++;
+        _status.Progress.Position += count;
     }
     void AddToLog(HTData data)
     {

@@ -10,6 +10,8 @@ using SpinText.Languages.Services;
 using SpinText.Models;
 using SpinText.ViewModels;
 using System.Diagnostics;
+using System.IO;
+using System.Web;
 
 namespace SpinText.Controllers;
 
@@ -77,12 +79,15 @@ public class HomeController : Controller
         return RedirectToAction("Index");
     }
 
+    [RequestSizeLimit(300000000)]
     [HttpPost]
     public JsonResult AddHT(
-        FormAddHTData data,
+        IFormFile data,
         [FromServices] HTProvider ht)
     {
-        HTGeneratingStatus status = ht.Add(data.Urls.Split('\n').Select(i => i.Trim()).Where(i => !String.IsNullOrEmpty(i)).ToArray());
+        TextReader tr = new StreamReader(data.OpenReadStream());
+        string content = tr.ReadToEnd();
+        HTGeneratingStatus status = ht.Add(content.Split('\n').Select(i => i.Trim()).Where(i => !String.IsNullOrEmpty(i)));
         return new JsonResult(status);
     }
     public JsonResult GetHTGeneratingStatus([FromServices] HTProvider ht)

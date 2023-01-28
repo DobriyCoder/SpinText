@@ -1,7 +1,7 @@
 ﻿@model IPartialModel
 
 <div class="dc-generatingform @Model?.Cls" @Model?.Attrs>
-    <form asp-action="AddHT">
+    <form asp-action="AddHT" enctype="multipart/form-data">
         <tpl :CurrencyPairs />
         <tpl :ProgressBar />
         <tpl :StatusBar />

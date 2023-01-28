@@ -16,4 +16,8 @@
     <ProjectReference Include="..\SpiningText\SpiningText.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Files\" />
+  </ItemGroup>
+
 </Project>

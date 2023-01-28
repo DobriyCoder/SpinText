@@ -9,6 +9,7 @@ public class HTManager
 {
     Db _db;
     DbSet<HTData> _htTable => _db.Templates;
+    Task bisy;
 
     public HTManager(DBFactory db_factory)
     {
@@ -42,9 +43,20 @@ public class HTManager
     }
     public void AddHTs(IEnumerable<HTData> data)
     {
-        foreach(var ht in data)
-        {
-            AddHT(ht);
-        }
+        var list = data.ToList();
+        var where_list = list.Select(i => $"(PageKey=\"{i.PageKey}\" AND Language={(int)i.Language})");
+        string where = String.Join(" OR ", where_list);
+        string query = $"DELETE FROM Templates WHERE {where};";
+        _db.Database.ExecuteSqlRaw(query);
+        //_htTable.RemoveRange(data);
+        //_db.SaveChanges();
+        _htTable.AddRange(data);
+        //_htTable.UpdateRange(data);
+        //Task add = _htTable.AddRangeAsync(list);
+        //Task.WaitAll(remove, add);
+
+        //if (bisy is not null) bisy.Wait();
+
+        _db.SaveChanges();
     }
 }
