@@ -3,6 +3,7 @@ using SpinText.Blocks.Services;
 using SpinText.Generator.Services;
 using SpinText.HT.DB;
 using SpinText.HT.Models;
+using SpinText.Models;
 using System.Security.Cryptography.X509Certificates;
 
 namespace SpinText.HT.Services;
@@ -14,15 +15,21 @@ public class HTProvider
     BlocksManager _blocks;
     HTManager _ht;
     IGenerator _generator;
+    bool _working = false;
+    DBFactory _dbFactory;
 
-    public HTProvider(BlocksManager blocks, HTManager ht, IGenerator generator)
+    public HTProvider(DBFactory dbFactory, BlocksManager blocks, HTManager ht, IGenerator generator)
     {
         this._blocks = blocks;
         this._ht = ht;
         this._generator = generator;
         this._log = new HTGeneratedLogData();
+        this._dbFactory = dbFactory;
     }
-
+    public void Stop()
+    {
+        _working = false;
+    }
     public HTGeneratingStatus Add(IEnumerable<string> urls)
     {
         CreateStatus(urls.Count());
@@ -43,33 +50,47 @@ public class HTProvider
     }
     public async Task AddAsync(IEnumerable<UrlData> urls)
     {
+        _working = true;
         var blocks = _blocks.GetBlocks();
         List<HTData> group = new List<HTData>();
         int i = 1;
 
-        foreach (var url in urls)
+        try
         {
-            if (url.PageKey is null) continue;
-
-            var vars = new STVarsDictionary(url.Data);
-            var templates = _generator.GenerateHT(url.PageKey, vars, blocks, AddToLog);
-
-            group.AddRange(templates);
-            ChangeStatus(1);
-
-            if (i++ >= 227)
+            foreach (var url in urls)
             {
-                _ht.AddHTs(group);
-                group.Clear();
-                i = 0;
-            }
-        }
+                if (url.PageKey is null) continue;
 
-        _ht.AddHTs(group);
-        group.Clear();
-        //ChangeStatus(i + 1);
+                var vars = new STVarsDictionary(url.Data);
+                var templates = _generator.GenerateHT(url.PageKey, vars, blocks, AddToLog);
+
+                group.AddRange(templates);
+                ChangeStatus(1);
+
+                if (i++ >= 227)
+                {
+                    _ht.AddHTs(group);
+                    group.Clear();
+                    i = 0;
+                }
+
+                if (!_working)
+                {
+                    CreateStatus(0);
+                    break;
+                }
+            }
+
+            _ht.AddHTs(group);
+            group.Clear();
+            _dbFactory.Remove();
+        }
+        catch (Exception ex)
+        {
+            CreateStatus(0);
+        }
     }
-    
+
     public HTGeneratingStatus CreateStatus(int max)
     {
         _status = new HTGeneratingStatus(max);

@@ -85,11 +85,23 @@ public class HomeController : Controller
         IFormFile data,
         [FromServices] HTProvider ht)
     {
+        if (data is null) return null;
         TextReader tr = new StreamReader(data.OpenReadStream());
         string content = tr.ReadToEnd();
         HTGeneratingStatus status = ht.Add(content.Split('\n').Select(i => i.Trim()).Where(i => !String.IsNullOrEmpty(i)));
         return new JsonResult(status);
     }
+    public void StopGenerating(
+        [FromServices] HTProvider ht)
+    {
+        ht.Stop();
+    }
+    public void ClearHTs(
+        [FromServices] HTManager ht)
+    {
+        ht.ClearHTs();
+    }
+    
     public JsonResult GetHTGeneratingStatus([FromServices] HTProvider ht)
     {
         return new JsonResult(ht.GetStatus());

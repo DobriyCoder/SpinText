@@ -30,14 +30,14 @@ public class STParser : ISTParser
     {
         IErrors result_errors;
         errors = new Errors();
-        var result = ParseVars(@"\[(.+?)\]", text, static_vars, out result_errors);
+        var result = ParseVars(@"\%(.+?)\%", text, static_vars, out result_errors);
         return result;
     }
     public string? ParseDinemicVars(string text, ISTVars? dinamic_vars, out IErrors errors)
     {
         IErrors result_errors;
         errors = new Errors();
-        var result = ParseVars(@"\%(.+?)\%", text, dinamic_vars, out result_errors);
+        var result = ParseVars(@"\[(.+?)\]", text, dinamic_vars, out result_errors);
         return result;
     }
     public string? ParseVars(string pattern, string text, ISTVars? vars, out IErrors errors)
@@ -53,9 +53,14 @@ public class STParser : ISTParser
 
             var math_line = i.Groups[1].Value;
 
-            foreach (string name in vars.GetVarNames())
+            Regex reg = new Regex(@"(^|[ +\-\/*^])([a-zA-Z0-9_]+)($|[ +\-\/*^])");
+            var result = reg.Matches(math_line);
+
+            foreach (Match match in result)
             {
-                math_line = math_line.Replace(name, vars.GetVar(name));
+                var value = vars.GetVar(match.Groups[2].Value);
+                if (value is null) return i.Value;
+                math_line = math_line.Replace(match.Groups[2].Value, value);
             }
 
             return Calc(math_line, vars!);
@@ -87,8 +92,8 @@ public class STParser : ISTParser
                 string name2 = i.Groups[4].Value;
                 string operation = i.Groups[3].Value;
 
-                if (!float.TryParse(vars.GetVar(name1), out float var_1)) return i.Value;
-                if (!float.TryParse(vars.GetVar(name2), out float var_2)) return i.Value;
+                if (!float.TryParse(name1, out float var_1)) return i.Value;
+                if (!float.TryParse(name2, out float var_2)) return i.Value;
 
                 switch(operation)
                 {
@@ -117,8 +122,8 @@ public class STParser : ISTParser
                 string name1 = i.Groups[2].Value;
                 string name2 = i.Groups[3].Value;
 
-                if (!float.TryParse(vars.GetVar(name1), out float var_1)) return i.Value;
-                if (!float.TryParse(vars.GetVar(name2), out float var_2)) return i.Value;
+                if (!float.TryParse(name1, out float var_1)) return i.Value;
+                if (!float.TryParse(name2, out float var_2)) return i.Value;
 
                 return i.Groups[1] + (var_1 * var_2).ToString();
             });
@@ -143,8 +148,8 @@ public class STParser : ISTParser
                 string name1 = i.Groups[2].Value;
                 string name2 = i.Groups[3].Value;
 
-                if (!float.TryParse(vars.GetVar(name1), out float var_1)) return i.Value;
-                if (!float.TryParse(vars.GetVar(name2), out float var_2)) return i.Value;
+                if (!float.TryParse(name1, out float var_1)) return i.Value;
+                if (!float.TryParse(name2, out float var_2)) return i.Value;
 
                 return i.Groups[1] + (var_1 / var_2).ToString();
             });
@@ -169,8 +174,8 @@ public class STParser : ISTParser
                 string name1 = i.Groups[2].Value;
                 string name2 = i.Groups[3].Value;
 
-                if (!float.TryParse(vars.GetVar(name1), out float var_1)) return i.Value;
-                if (!float.TryParse(vars.GetVar(name2), out float var_2)) return i.Value;
+                if (!float.TryParse(name1, out float var_1)) return i.Value;
+                if (!float.TryParse(name2, out float var_2)) return i.Value;
 
                 return i.Groups[1] + Math.Pow(var_1, var_2).ToString();
             });

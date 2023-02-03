@@ -26,6 +26,7 @@ jQuery('.dc-blocks-main').dcTpl(function ($, Export) {
 
     Export.actualizeTemplatesNames = function () {
         $self.find('.dc-drop-down-block').each(function (i) {
+            $(this).find('.dcg-h2').html('Block ' + (i + 1));
             $(this).find('.dcj-tpl').attr('name', 'Blocks['+i+'][]');
         });
     };

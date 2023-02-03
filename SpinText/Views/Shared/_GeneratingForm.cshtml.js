@@ -28,6 +28,7 @@ jQuery('.dc-generatingform').dcTpl(function ($, Export) {
     }
     function finishParsing() {
         enabledForm();
+        $self.find('.dcj-stop-btn').addClass('dcg-btn_disabled');
     }
     function startParsing(data) {
         
@@ -35,6 +36,7 @@ jQuery('.dc-generatingform').dcTpl(function ($, Export) {
         $progress_bar.setPosition(0);
         $status_bar.setMax(data.generatingCount);
         $status_bar.setValue(0);
+        $self.find('.dcj-stop-btn').removeClass('dcg-btn_disabled');
     }
     function enabledForm() {
         $pairs_input.removeAttr('disabled');
@@ -47,11 +49,34 @@ jQuery('.dc-generatingform').dcTpl(function ($, Export) {
         $link_btns.addClass('dcg-btn_disabled');
     }
 
+    (function () {
+
+        $.post(get_status_url, function (msg) {
+            console.log(msg);
+            if (!msg || msg.isCompleted) {
+                finishParsing();
+            }
+            else {
+                disabledForm();
+                startParsing(msg);
+                changeData(msg);
+                listingStatus();
+            }
+        });
+    })();
+
+    $self.on('click', '.dcj-stop-btn', function (e) {
+        e.preventDefault();
+        $.get($(this).attr('href'));
+    });
+
     $self.on('submit', 'form', function (e) {
         e.preventDefault();
 
         $form = $(this);
         var data = new FormData();
+        var file = $form.find('[type="file"]')[0].files[0];
+        if (!file) return;
         data.append('data', $form.find('[type="file"]')[0].files[0]);
         var url = $form.attr('action');
 
@@ -66,18 +91,24 @@ jQuery('.dc-generatingform').dcTpl(function ($, Export) {
             data: data,
             dataType: 'json',
             success: function (msg) {
+                if (!msg) return;
                 startParsing(msg);
                 changeData(msg);
                 listingStatus();
             }
         });
-
-        /*$.post(url, data, function (msg) {
-            startParsing(msg);
-            changeData(msg);
-            listingStatus();
-        });*/
     });
+
+    $self.on('click', '.dcj-clear-btn', function (e) {
+        e.preventDefault();
+        $this = $(this);
+
+        $this.addClass('dcg-btn_disabled');
+
+        $.get($this.attr('href'), function () {
+            $this.removeClass('dcg-btn_disabled');
+        });
+    })
 });
 // /generatingform
 //--------------------------------------------

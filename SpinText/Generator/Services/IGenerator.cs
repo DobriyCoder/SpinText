@@ -34,7 +34,8 @@ public class Generator : IGenerator
             var tpls = i.OrderBy(j => j.BlockIndex).GroupBy(j => j.BlockIndex).Select(j =>
             {
                 int count = j.Count();
-                int num = new Random().Next(count - 1);
+                int num = new Random().Next(0, count);
+                if (num >= count) num--;
                 return j.ToList()[num].Template;
             });
 

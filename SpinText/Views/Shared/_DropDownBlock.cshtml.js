@@ -49,7 +49,9 @@ jQuery('.dc-drop-down-block').dcTpl(function ($, Export) {
     };
 
     Export.remove = function () {
+        var $parent = $self.closest('.dc-blocks-main').dcTpl();
         $self.remove();
+        $parent.actualizeTemplatesNames();
     };
 
     Export.removeTemplates = function () {

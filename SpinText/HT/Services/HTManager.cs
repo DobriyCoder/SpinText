@@ -46,17 +46,34 @@ public class HTManager
         var list = data.ToList();
         var where_list = list.Select(i => $"(PageKey=\"{i.PageKey}\" AND Language={(int)i.Language})");
         string where = String.Join(" OR ", where_list);
+        if (where.Length == 0) return;
         string query = $"DELETE FROM Templates WHERE {where};";
-        _db.Database.ExecuteSqlRaw(query);
-        //_htTable.RemoveRange(data);
-        //_db.SaveChanges();
-        _htTable.AddRange(data);
-        //_htTable.UpdateRange(data);
-        //Task add = _htTable.AddRangeAsync(list);
-        //Task.WaitAll(remove, add);
+        
+        try
+        {
+            _db.Database.ExecuteSqlRaw(query);
 
-        //if (bisy is not null) bisy.Wait();
+            _htTable.AddRange(data);
+            _db.SaveChanges();
+            Detach(data);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex);
+        }
+    }
 
+    public void ClearHTs ()
+    {
+        _htTable.RemoveRange(_htTable);
         _db.SaveChanges();
+    }
+
+    void Detach (IEnumerable<HTData> data)
+    {
+        foreach (var item in data)
+        {
+            _db.Entry<HTData>(item).State = EntityState.Detached;
+        }
     }
 }
