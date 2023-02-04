@@ -1,0 +1,23 @@
+// /*.....................................*/
+// /* TEMPLATE: types-menu */
+.dc-types-menu {
+    ul {
+        display: flex;
+    }
+    a {
+        display: inline-block;
+        padding: 5px 10px;
+        font-size: 18px;
+        color: green;
+
+        &.dcg-active {
+            font-weight: blold;
+            text-decoration: none;
+        }
+    }
+    @include media-breakpoint-down (sm) {
+
+    }
+}
+// /* /TEMPLATE: types-menu */
+// /*.....................................*/

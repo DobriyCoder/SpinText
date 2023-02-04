@@ -8,6 +8,7 @@ using SpinText.HT.Services;
 using SpinText.Languages.Models;
 using SpinText.Languages.Services;
 using SpinText.Models;
+using SpinText.Types;
 using SpinText.ViewModels;
 using System.Diagnostics;
 using System.IO;
@@ -24,15 +25,22 @@ public class HomeController : Controller
         _logger = logger;
     }
 
-    public IActionResult Index(ELanguage? lang
+    [Route("/{type:int?}")]
+    public IActionResult Index(EType type, ELanguage? lang
         , [FromServices] LanguagesManager lang_manager
-        , [FromServices] BlocksManager blocks_manager)
+        , [FromServices] BlocksManager blocks_manager
+        , [FromServices] TypesManager types_manager)
     {
         lang = lang ?? lang_manager.GetDefaultLanguage();
 
         var model = new HomeModel(lang.Value)
         {
-            Blocks = new BlocksMain(blocks_manager.GetBlocks(lang.Value))
+            Blocks = new BlocksMain(blocks_manager.GetBlocks(lang.Value, type)),
+            TypesMenu = new TypesMenu()
+            {
+                Types = new TypesManager().Types,
+                CurrentType = ((int)type).ToString(),
+            }
         };
 
         ViewBag.HomeModel = model;
@@ -61,20 +69,21 @@ public class HomeController : Controller
 
         for (int i = 0; i < data.Blocks.Count; i++)
         {
-            foreach(var tpl in data.Blocks[i])
+            foreach (var tpl in data.Blocks[i])
             {
                 if (tpl == null) continue;
 
                 db_data.Add(new BlockData()
                 {
                     Language = data.Language,
+                    TemplatesType = data.TemplatesType,
                     BlockIndex = (byte)i,
                     Template = tpl,
                 });
             }
         }
 
-        blocks.SaveBlocks(data.Language, db_data);
+        blocks.SaveBlocks(data.Language, data.TemplatesType, db_data);
 
         return RedirectToAction("Index");
     }
@@ -101,7 +110,7 @@ public class HomeController : Controller
     {
         ht.ClearHTs();
     }
-    
+
     public JsonResult GetHTGeneratingStatus([FromServices] HTProvider ht)
     {
         return new JsonResult(ht.GetStatus());

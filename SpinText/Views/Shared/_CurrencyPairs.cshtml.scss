@@ -5,6 +5,9 @@
     border-top: 1px solid #ECECEC;
     border-bottom: 1px solid #ECECEC;
 
+    &__types {
+        margin-top: 10px;
+    }
     @include media-breakpoint-down (sm) {
     }
 }

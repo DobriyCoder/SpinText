@@ -407,3 +407,10 @@ jQuery('.dc-status-bar').dcTpl(function ($, Export) {
 });
 // /status-bar
 //--------------------------------------------
+
+// types-menu
+jQuery('.dc-types-menu').dcTpl(function ($, Export) {
+   var $self = $(this);
+});
+// /types-menu
+//--------------------------------------------

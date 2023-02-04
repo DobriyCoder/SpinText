@@ -4263,8 +4263,9 @@ a:hover {
 }
 .dcg-h2 {
   font-family: "Roboto", sans-serif;
-  font-size: 16px;
+  font-size: 18px;
   line-height: 19px;
+  font-weight: bold;
 }
 /*.dcg-h3 {
     font-family: 'Roboto', sans-serif;
@@ -4868,6 +4869,9 @@ textarea:focus {
   border-top: 1px solid #ECECEC;
   border-bottom: 1px solid #ECECEC;
 }
+.dc-currency-pairs__types {
+  margin-top: 10px;
+}
 .dc-drop-down-block {
   min-height: 49px;
   margin-top: 6px;
@@ -4930,6 +4934,19 @@ textarea:focus {
 }
 .dc-status-bar__caption {
   font-weight: bold;
+}
+.dc-types-menu ul {
+  display: flex;
+}
+.dc-types-menu a {
+  display: inline-block;
+  padding: 5px 10px;
+  font-size: 18px;
+  color: green;
+}
+.dc-types-menu a.dcg-active {
+  font-weight: blold;
+  text-decoration: none;
 }
 /*.....................................*/
 /* TEMPLATE: classes */

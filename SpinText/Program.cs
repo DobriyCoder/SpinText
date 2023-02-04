@@ -7,6 +7,7 @@ using SpinText.Generator.Services;
 using SpinText.HT.Services;
 using SpinText.Languages.Services;
 using SpinText.Models;
+using SpinText.Types;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,6 +31,7 @@ builder.Services.AddTransient<IGenerator, Generator>();
 builder.Services.AddSingleton<HTProvider>();
 builder.Services.AddTransient<HTManager>();
 builder.Services.AddSingleton<LanguagesManager>();
+builder.Services.AddSingleton<TypesManager>();
 builder.Services.AddSingleton<DBFactory>();
 builder.Services.AddSingleton<ISTParser>(i => new STParser());
 

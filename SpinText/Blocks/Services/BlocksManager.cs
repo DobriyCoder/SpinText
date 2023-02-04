@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using SpinText.Blocks.DB;
 using SpinText.Languages.Models;
 using SpinText.Models;
+using SpinText.Types;
 
 namespace SpinText.Blocks.Services;
 
@@ -16,9 +17,11 @@ public class BlocksManager
         this._db = db_factory.Create();
     }
 
-    public IEnumerable<BlockData> GetBlocks(ELanguage lang)
+    public IEnumerable<BlockData> GetBlocks(ELanguage lang, EType type)
     {
-        return _blocks.Where(i => i.Language == lang).ToArray();
+        return _blocks
+            .Where(i => i.Language == lang && i.TemplatesType == type)
+            .ToArray();
     }
     public IEnumerable<BlockData> GetBlocks()
     {
@@ -29,14 +32,14 @@ public class BlocksManager
         _blocks.RemoveRange(_blocks);
         _db.SaveChanges();
     }
-    public void Clear(ELanguage lang)
+    public void Clear(ELanguage lang, EType type)
     {
-        _blocks.RemoveRange(_blocks.Where(i => i.Language == lang));
+        _blocks.RemoveRange(_blocks.Where(i => i.Language == lang && i.TemplatesType == type));
         _db.SaveChanges();
     }
-    public void SaveBlocks(ELanguage lang, IEnumerable<BlockData> blocks)
+    public void SaveBlocks(ELanguage lang, EType type, IEnumerable<BlockData> blocks)
     {
-        Clear(lang);
+        Clear(lang, type);
         _blocks.AddRange(blocks);
         _db.SaveChanges();
     }

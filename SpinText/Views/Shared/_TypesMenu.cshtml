@@ -1,0 +1,23 @@
+﻿@model IPartialModel
+
+@{
+    var types = ((HomeModel)ViewBag.HomeModel).TypesMenu;
+}
+<div class="dc-types-menu @Model.Cls" @Model.Attrs>
+    <nav>
+        <ul>
+            @foreach(var t in types.Types)
+            {
+                @if (t.Key == types.CurrentType)
+                {
+                    <li><a class="dcg-active" asp-action="Index" asp-route-type="@t.Key">@t.Value</a></li>
+                }
+                else
+                {
+                    <li><a asp-action="Index" asp-route-type="@t.Key">@t.Value</a></li>
+                }
+            }
+        </ul>
+    </nav>
+    <input type="hidden" name="TemplatesType" value="@types.CurrentType" />
+</div>

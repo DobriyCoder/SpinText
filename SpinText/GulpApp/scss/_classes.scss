@@ -68,8 +68,9 @@ a {
 
 .dcg-h2 {
     font-family: 'Roboto', sans-serif;
-    font-size: 16px;
+    font-size: 18px;
     line-height: 19px;
+    font-weight: bold;
 
     @include media-breakpoint-down (sm) {
     }
