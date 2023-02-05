@@ -31,11 +31,13 @@ public class CoinsManager
     {
         name = name.ToLower();
 
-        return _coins
+        int? index = _coins
             .FromSqlRaw("SELECT row_number() OVER (ORDER BY Id) as Id, Name from Coins as c")
             .Where(i => i.Name.ToLower() == name)
             .FirstOrDefault()
             ?.Id;
+
+        return index is null ? null : index - 1;
     }
     public int[] GetCoinsIndexes(string from, string to)
     {
@@ -45,18 +47,28 @@ public class CoinsManager
         return _coins
             .FromSqlRaw("SELECT row_number() OVER (ORDER BY Id) as Id, Name from Coins as c")
             .Where(i => i.Name.ToLower() == from || i.Name.ToLower() == to)
-            .Select(i => i.Id)
+            .Select(i => i.Id - 1)
             .ToArray();
     }
     public int? GetPairIndex(string from, string to)
     {
         var indexes = GetCoinsIndexes(from, to);
-        if (indexes.Length < 2) return null;
+        if (indexes.Length < 2 || indexes[0] == indexes[1]) return null;
 
-        int? index_1 = indexes[0];
-        int? index_2 = indexes[1];
+        int i1 = indexes[0];
+        int i2 = indexes[1];
+        int count = _coins.Count();
+        int n = i1;
+        int pre_count = 0;
 
-        return 2;
+        for (int i = 1; i <= n; i++)
+        {
+            pre_count += count - 1;
+        }
+
+        int index = pre_count + (i2 - i1) - 1;
+
+        return index;
     }
     public int? GetPairIndex(string name)
     {
