@@ -5,8 +5,8 @@ namespace SpinText.Models;
 
 public class HTdataToExportData : IExportData
 {
-    IEnumerable<HTData> _data;
-    public HTdataToExportData(IEnumerable<HTData> data)
+    IEnumerable<HTBaseData> _data;
+    public HTdataToExportData(IEnumerable<HTBaseData> data)
     {
         _data = data;
     }
@@ -29,7 +29,7 @@ public class HTdataToExportData : IExportData
         }
     }
 
-    public List<string> GetLine(HTData data)
+    public List<string> GetLine(HTBaseData data)
     {
         return data
             .GetType()

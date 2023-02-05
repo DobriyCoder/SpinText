@@ -14,7 +14,7 @@ public class ExporterProvider
         this._exporter = exporter;
         this._logger = logger;
     }
-    public byte[] CreateExportHTFile(IEnumerable<HTData> data)
+    public byte[] CreateExportHTFile(IEnumerable<HTBaseData> data)
     {
         return _exporter.CreateFile(new HTdataToExportData(data));
     }

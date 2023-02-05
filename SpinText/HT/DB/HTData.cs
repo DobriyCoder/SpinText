@@ -1,15 +1,17 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SpinText.Languages.Models;
+using SpinText.Types;
 using System.ComponentModel.DataAnnotations;
 
 namespace SpinText.HT.DB;
 
-[PrimaryKey("PageKey", "Language")]
-public class HTData
+public class HTBaseData
 {
-    //public int Id { get; set; }
-    [MaxLength(50)]
-    public string PageKey { get; set; }
+    public uint Id { get; set; }
     public ELanguage Language { get; set; }
+    public EType TemplateType { get; set; }
     public string Template { get; set; }
 }
+public class HTData : HTBaseData { }
+
+public class HTPairsData : HTBaseData { }

@@ -116,7 +116,6 @@ public class HTProvider
     {
         _log.Items.Add(new HTGeneratedLogItem()
         {
-            Key = data.PageKey,
             Language = data.Language,
             Status = EHTGeneratedLogStatus.Ok,
         });

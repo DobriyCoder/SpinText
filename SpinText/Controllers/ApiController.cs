@@ -7,6 +7,7 @@ using SpinText.Blocks.Services;
 using SpinText.Generator.Services;
 using SpinText.HT.Services;
 using SpinText.Languages.Models;
+using SpinText.Types;
 
 namespace SpinText.Controllers
 {
@@ -20,7 +21,7 @@ namespace SpinText.Controllers
             [FromServices] IGenerator generator,
             [FromServices] HTManager templates)
         {
-            var tmp = templates.GetHT(key, lang);
+            var tmp = templates.GetHT(1, EType.Coin, lang);
             if (tmp is null) return new JsonResult(new
             {
                 Status = "Failed",

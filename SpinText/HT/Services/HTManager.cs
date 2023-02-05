@@ -2,78 +2,77 @@
 using SpinText.HT.DB;
 using SpinText.Languages.Models;
 using SpinText.Models;
+using SpinText.Types;
 
 namespace SpinText.HT.Services;
 
 public class HTManager
 {
-    Db _db;
-    DbSet<HTData> _htTable => _db.Templates;
-    Task bisy;
+    HTPairsManager _pairs;
+    HTCommonManager _common;
 
-    public HTManager(DBFactory db_factory)
+    public HTManager(HTPairsManager pairs, HTCommonManager common)
     {
-        _db = db_factory.Create();
+        _pairs = pairs;
+        _common = common;
     }
-    public IEnumerable<HTData> GetHTs()
+    public IEnumerable<HTBaseData> GetHTs()
     {
-        return _htTable;
-    }
-    public HTData? GetHT(string page_key, ELanguage language)
-    {
-        return _htTable
-            .FirstOrDefault(
-                i => i.PageKey == page_key 
-                && i.Language == language);
-    }
-    public void AddHT(HTData data)
-    {
-        var ht = _htTable.FirstOrDefault(i => i.PageKey == data.PageKey && i.Language == data.Language);
-        
-        if (ht == null)
+        foreach (var pair in _pairs.GetHTs())
         {
-            _htTable.Add(data);
+            yield return pair;
         }
+
+        foreach (var item in _common.GetHTs())
+        {
+            yield return item;
+        }
+    }
+    
+    public HTBaseData? GetHT(int index, EType type, ELanguage language) =>
+        type == EType.Pair
+            ? _pairs.GetHT(index, language)
+            : _common.GetHT(index, type, language);
+
+    public void AddHT(HTBaseData data)
+    {
+        if (data.TemplateType == EType.Pair)
+            _pairs.AddHT(BaseToPairs(data));
         else
-        {
-            ht.Template = data.Template;
-        }
-
-        _db.SaveChanges();
+            _common.AddHT(BaseToCommon(data));
     }
-    public void AddHTs(IEnumerable<HTData> data)
-    {
-        var list = data.ToList();
-        var where_list = list.Select(i => $"(PageKey=\"{i.PageKey}\" AND Language={(int)i.Language})");
-        string where = String.Join(" OR ", where_list);
-        if (where.Length == 0) return;
-        string query = $"DELETE FROM Templates WHERE {where};";
         
-        try
-        {
-            _db.Database.ExecuteSqlRaw(query);
+    public void AddHTs(IEnumerable<HTBaseData> data)
+    {
+        var common_data = data
+            .Where(i => i.TemplateType != EType.Pair)
+            .Select(i => BaseToCommon(i));
 
-            _htTable.AddRange(data);
-            _db.SaveChanges();
-            Detach(data);
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine(ex);
-        }
+        var pairs_data = data
+            .Where(i => i.TemplateType == EType.Pair)
+            .Select(i => BaseToPairs(i));
+
+        _common.AddHTs(common_data);
+        _pairs.AddHTs(pairs_data);
     }
 
     public void ClearHTs ()
     {
-        _htTable.RemoveRange(_htTable);
-        _db.SaveChanges();
+        _pairs.ClearHTs();
+        _common.ClearHTs();
     }
 
-    void Detach (IEnumerable<HTData> data)
+    HTData BaseToCommon(HTBaseData pairs) => new HTData()
     {
-        foreach (var item in data)
-        {
-            _db.Entry<HTData>(item).State = EntityState.Detached;
-        }
-    }
+        TemplateType = pairs.TemplateType,
+        Language = pairs.Language,
+        Template = pairs.Template,
+    };
+
+    HTPairsData BaseToPairs(HTBaseData pairs) => new HTPairsData()
+    {
+        TemplateType = pairs.TemplateType,
+        Language = pairs.Language,
+        Template = pairs.Template,
+    };
 }

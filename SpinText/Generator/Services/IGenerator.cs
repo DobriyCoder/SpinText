@@ -46,7 +46,6 @@ public class Generator : IGenerator
 
             var result = new HTData()
             {
-                PageKey = page_key,
                 Language = i.Key,
                 Template = text!,
             };
