@@ -4896,6 +4896,39 @@ textarea:focus {
   margin-left: 13px;
   transition: transform 1s;
 }
+.dc-form-add-coins input, .dc-form-add-coins button {
+  margin-top: 10px;
+}
+.dc-form-add-coins button {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 10px;
+  height: auto;
+  font-size: 20px;
+  align-items: center;
+}
+.dc-form-add-coins button img {
+  width: 20px;
+  height: 20px;
+  display: none;
+}
+.dc-generatingform label {
+  display: block;
+}
+.dc-generatingform label span {
+  display: block;
+  font-weight: bold;
+}
+.dc-generatingform__types {
+  margin-top: 10px;
+}
+.dc-generatingform__types label {
+  display: inline-block;
+}
+.dc-generatingform__types label span {
+  display: inline-block;
+  font-weight: bold;
+}
 .dc-header__content {
   padding-top: 30px;
   padding-bottom: 30px;

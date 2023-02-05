@@ -1,6 +1,9 @@
-﻿namespace SpinText.ViewModels;
+﻿using SpinText.Types;
+
+namespace SpinText.ViewModels;
 
 public class FormAddHTData
 {
-    public string Urls { get; set; }
+    public int Count { get; set; }
+    public EType Type { get; set; }
 }

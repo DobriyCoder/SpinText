@@ -4,7 +4,9 @@ using SpinText.Generator.Services;
 using SpinText.HT.DB;
 using SpinText.HT.Models;
 using SpinText.Models;
+using SpinText.Types;
 using System.Security.Cryptography.X509Certificates;
+using System.Security.Policy;
 
 namespace SpinText.HT.Services;
 
@@ -42,11 +44,61 @@ public class HTProvider
 
         return GetStatus();
     }
+    public HTGeneratingStatus Add(int count, EType type)
+    {
+        CreateStatus(count);
+
+        Task.Run(async () =>
+        {
+            await AddAsync(count, type);
+        });
+
+        return GetStatus();
+    }
     public void Add(string key, Dictionary<string, string> vars)
     {
         CreateStatus(1);
         var url_data = new UrlData(key, vars);
         AddAsync(new UrlData[] { url_data }).Wait();
+    }
+    public async Task AddAsync(int count, EType type)
+    {
+        _working = true;
+        var blocks = _blocks.GetBlocks(type);
+        List<HTData> group = new List<HTData>();
+        int i = 1;
+
+        try
+        {
+            for (int num = 0; num < count; num++)
+            {
+                if (!_working)
+                {
+                    CreateStatus(0);
+                    break;
+                }
+
+                var templates = _generator.GenerateHT(type, null, blocks, AddToLog);
+
+                group.AddRange(templates);
+                ChangeStatus(1);
+
+                if (i++ >= 227)
+                {
+                    _ht.AddHTs(group);
+                    group.Clear();
+                    i = 0;
+                }
+            }
+
+            _ht.AddHTs(group);
+            group.Clear();
+            _dbFactory.Remove();
+        }
+        catch (Exception ex)
+        {
+            CreateStatus(0);
+        }
     }
     public async Task AddAsync(IEnumerable<UrlData> urls)
     {
@@ -62,7 +114,7 @@ public class HTProvider
                 if (url.PageKey is null) continue;
 
                 var vars = new STVarsDictionary(url.Data);
-                var templates = _generator.GenerateHT(url.PageKey, vars, blocks, AddToLog);
+                var templates = _generator.GenerateHT(null, vars, blocks, AddToLog);
 
                 group.AddRange(templates);
                 ChangeStatus(1);
@@ -116,6 +168,7 @@ public class HTProvider
     {
         _log.Items.Add(new HTGeneratedLogItem()
         {
+            Type = data.TemplateType,
             Language = data.Language,
             Status = EHTGeneratedLogStatus.Ok,
         });

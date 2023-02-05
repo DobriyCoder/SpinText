@@ -209,6 +209,48 @@ jQuery('.dc-drop-down-block').dcTpl(function ($, Export) {
 // /drop-down-block
 //--------------------------------------------
 
+// form-add-coins
+jQuery('.dc-form-add-coins').dcTpl(function ($, Export) {
+   var $self = $(this);
+
+    function disabled() {
+        $self.find('input, button').attr('disabled', 'disabled');
+        $self.find('.dcj-loading-icon').show();
+    }
+    function enabled() {
+        $self.find('input, button').removeAttr('disabled');
+        $self.find('.dcj-loading-icon').hide();
+    }
+
+    $self.on('submit', 'form', function (e) {
+        e.preventDefault();
+        let $this = $(this);
+        let url = $this.attr('action');
+
+        var data = new FormData();
+        var file = $this.find('.dcj-file-input')[0].files[0];
+        if (!file) return;
+        data.append('data', file);
+
+        disabled();
+
+        $.ajax({
+            type: "POST",
+            url: url,
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: data,
+            dataType: 'json',
+            success: function (msg) {
+                enabled();
+            }
+        });
+    });
+});
+// /form-add-coins
+//--------------------------------------------
+
 // form-blocks
 jQuery('.dc-form-blocks').dcTpl(function ($, Export) {
    var $self = $(this);
@@ -270,7 +312,6 @@ jQuery('.dc-generatingform').dcTpl(function ($, Export) {
     (function () {
 
         $.post(get_status_url, function (msg) {
-            console.log(msg);
             if (!msg || msg.isCompleted) {
                 finishParsing();
             }
@@ -292,28 +333,16 @@ jQuery('.dc-generatingform').dcTpl(function ($, Export) {
         e.preventDefault();
 
         $form = $(this);
-        var data = new FormData();
-        var file = $form.find('[type="file"]')[0].files[0];
-        if (!file) return;
-        data.append('data', $form.find('[type="file"]')[0].files[0]);
+        var data = $form.serialize();
         var url = $form.attr('action');
 
         disabledForm();
 
-        $.ajax({
-            type: "POST",
-            url: url,
-            cache: false,
-            contentType: false,
-            processData: false,
-            data: data,
-            dataType: 'json',
-            success: function (msg) {
-                if (!msg) return;
-                startParsing(msg);
-                changeData(msg);
-                listingStatus();
-            }
+        $.post($form.attr('action'), data, function (msg) {
+            if (!msg) return;
+            startParsing(msg);
+            changeData(msg);
+            listingStatus();
         });
     });
 

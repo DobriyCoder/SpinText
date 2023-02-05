@@ -52,7 +52,6 @@ jQuery('.dc-generatingform').dcTpl(function ($, Export) {
     (function () {
 
         $.post(get_status_url, function (msg) {
-            console.log(msg);
             if (!msg || msg.isCompleted) {
                 finishParsing();
             }
@@ -74,28 +73,16 @@ jQuery('.dc-generatingform').dcTpl(function ($, Export) {
         e.preventDefault();
 
         $form = $(this);
-        var data = new FormData();
-        var file = $form.find('[type="file"]')[0].files[0];
-        if (!file) return;
-        data.append('data', $form.find('[type="file"]')[0].files[0]);
+        var data = $form.serialize();
         var url = $form.attr('action');
 
         disabledForm();
 
-        $.ajax({
-            type: "POST",
-            url: url,
-            cache: false,
-            contentType: false,
-            processData: false,
-            data: data,
-            dataType: 'json',
-            success: function (msg) {
-                if (!msg) return;
-                startParsing(msg);
-                changeData(msg);
-                listingStatus();
-            }
+        $.post($form.attr('action'), data, function (msg) {
+            if (!msg) return;
+            startParsing(msg);
+            changeData(msg);
+            listingStatus();
         });
     });
 

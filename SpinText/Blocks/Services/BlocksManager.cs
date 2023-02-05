@@ -23,6 +23,12 @@ public class BlocksManager
             .Where(i => i.Language == lang && i.TemplatesType == type)
             .ToArray();
     }
+    public IEnumerable<BlockData> GetBlocks(EType type)
+    {
+        return _blocks
+            .Where(i => i.TemplatesType == type)
+            .ToArray();
+    }
     public IEnumerable<BlockData> GetBlocks()
     {
         return _blocks.ToArray();

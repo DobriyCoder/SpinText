@@ -1,9 +1,29 @@
 // /*.....................................*/
 // /* TEMPLATE: generatingform */
 .dc-generatingform {
+    label {
+        display: block;
+
+        span {
+            display: block;
+            font-weight: bold;
+        }
+    }
+
+    &__types {
+        margin-top: 10px;
+
+        label {
+            display: inline-block;
+
+            span {
+                display: inline-block;
+                font-weight: bold;
+            }
+        }
+    }
 
     @include media-breakpoint-down (sm) {
-
     }
 }
 // /* /TEMPLATE: generatingform */

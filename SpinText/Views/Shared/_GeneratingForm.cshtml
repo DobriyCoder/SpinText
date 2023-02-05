@@ -2,7 +2,21 @@
 
 <div class="dc-generatingform @Model?.Cls" @Model?.Attrs>
     <form asp-action="AddHT" enctype="multipart/form-data">
-        <tpl :CurrencyPairs />
+        <label>
+            <span>Count:</span>
+            <input type="number" name="count" value="0" />
+        </label>
+
+        <div class="dc-generatingform__types">
+            <label>
+                <input checked type="radio" name="Type" value="0" />
+                <span>- Coin</span>
+            </label>
+            <label>
+                <input type="radio" name="Type" value="1" />
+                <span>- Pair</span>
+            </label>
+        </div>
         <tpl :ProgressBar />
         <tpl :StatusBar />
         <tpl :CtrlBtn />

@@ -1,0 +1,9 @@
+﻿@model IPartialModel
+
+<div class="dc-form-add-coins @Model.Cls" @Model.Attrs>
+    <form asp-action="AddCoins" enctype="multipart/form-data">
+        <h2 class="dcg-h2">Add coins</h2>
+        <input class="dcj-file-input" type="file" name="Coins" />
+        <button type="submit"><span>Save</span><img class="dcj-loading-icon" src="https://i.gifer.com/ZKZx.gif" /></button>
+    </form>
+</div>

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SpinText.Blocks.DB;
 using SpinText.Blocks.Services;
+using SpinText.Coins.Services;
 using SpinText.Exporter.Services;
 using SpinText.HT.Models;
 using SpinText.HT.Services;
@@ -90,14 +91,23 @@ public class HomeController : Controller
 
     [RequestSizeLimit(300000000)]
     [HttpPost]
-    public JsonResult AddHT(
+    public JsonResult AddCoins(
         IFormFile data,
-        [FromServices] HTProvider ht)
+        [FromServices] CoinsManager coins)
     {
         if (data is null) return null;
         TextReader tr = new StreamReader(data.OpenReadStream());
         string content = tr.ReadToEnd();
-        HTGeneratingStatus status = ht.Add(content.Split('\n').Select(i => i.Trim()).Where(i => !String.IsNullOrEmpty(i)));
+        coins.Add(content);
+        return new JsonResult(new { Status = "ok" });
+    }
+
+    [HttpPost]
+    public JsonResult AddHT(
+        FormAddHTData data,
+        [FromServices] HTProvider ht)
+    {
+        HTGeneratingStatus status = ht.Add(data.Count, data.Type);
         return new JsonResult(status);
     }
     public void StopGenerating(
