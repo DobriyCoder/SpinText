@@ -2,7 +2,7 @@
 jQuery('.dc-generatingform').dcTpl(function ($, Export) {
     var $self = $(this);
     var get_status_url = '/home/GetHTGeneratingStatus';
-    var delay = 1000;
+    var delay = 3000;
 
     var $pairs_input = $self.find('textarea');
     var $btns = $self.find('button, input[type="submit"], input[type="button"]')

@@ -1,6 +1,7 @@
 ﻿namespace SpinText.Models
 {
-    public class Enums
+    public enum EEvent
     {
+        CoinsAdded,
     }
 }

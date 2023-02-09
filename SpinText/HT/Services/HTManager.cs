@@ -61,7 +61,18 @@ public class HTManager
         _pairs.ClearHTs();
         _common.ClearHTs();
     }
+    public void RefreshDb()
+    {
+        _pairs.RefreshDb();
+        _common.RefreshDb();
+    }
 
+    public int GetCount(EType type)
+    {
+        return type == EType.Pair
+            ? _pairs.GetCount()
+            : _common.GetCount(type);
+    }
     HTData BaseToCommon(HTBaseData pairs) => new HTData()
     {
         TemplateType = pairs.TemplateType,

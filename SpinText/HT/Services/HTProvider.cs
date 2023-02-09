@@ -1,5 +1,7 @@
-﻿using SpiningText.Models;
+﻿using DobriyCoder.Core.Events;
+using SpiningText.Models;
 using SpinText.Blocks.Services;
+using SpinText.Coins.Services;
 using SpinText.Generator.Services;
 using SpinText.HT.DB;
 using SpinText.HT.Models;
@@ -19,14 +21,19 @@ public class HTProvider
     IGenerator _generator;
     bool _working = false;
     DBFactory _dbFactory;
-
-    public HTProvider(DBFactory dbFactory, BlocksManager blocks, HTManager ht, IGenerator generator)
+    EventsBus _events;
+    Queue<Task> _tasks;
+    public HTProvider(EventsBus events, DBFactory dbFactory, BlocksManager blocks, HTManager ht, IGenerator generator)
     {
         this._blocks = blocks;
         this._ht = ht;
         this._generator = generator;
         this._log = new HTGeneratedLogData();
         this._dbFactory = dbFactory;
+        this._events = events;
+        _tasks = new Queue<Task>();
+
+        _events.Add(OnCoinsAdded, EEvent.CoinsAdded);
     }
     public void Stop()
     {
@@ -46,12 +53,25 @@ public class HTProvider
     }
     public HTGeneratingStatus Add(int count, EType type)
     {
-        CreateStatus(count);
-
-        Task.Run(async () =>
+        Task t = new Task(async () =>
         {
+            CreateStatus(count);
             await AddAsync(count, type);
+
+            if (_tasks.Count > 0)
+            {
+                _tasks.Dequeue().Start();
+            }
         });
+
+        _tasks.Enqueue(t);
+
+        if (!_working)
+        {
+            CreateStatus(count);
+            _tasks.Dequeue().Start();
+            Thread.Sleep(300);
+        }
 
         return GetStatus();
     }
@@ -86,14 +106,25 @@ public class HTProvider
                 if (i++ >= 227)
                 {
                     _ht.AddHTs(group);
+                    
+                    foreach (var g in group)
+                    {
+                        g.Dispose();
+                    }
+                    
                     group.Clear();
+                    GC.SuppressFinalize(templates);
+                    GC.Collect();
+                    GC.WaitForFullGCComplete();
                     i = 0;
                 }
             }
 
             _ht.AddHTs(group);
             group.Clear();
+            _ht.RefreshDb();
             _dbFactory.Remove();
+            _working = false;
         }
         catch (Exception ex)
         {
@@ -172,5 +203,21 @@ public class HTProvider
             Language = data.Language,
             Status = EHTGeneratedLogStatus.Ok,
         });
+    }
+
+    async void OnCoinsAdded (object sender, EventArgs e)
+    {
+        await Task.Run(() => { });
+
+        var coins = (CoinsManager)sender;
+        int coins_count = coins.GetCoinsCount() + 1;
+        int pairs_count = coins.GetPairsCount(coins_count);
+        int coins_ht_count = _ht.GetCount(EType.Coin);
+        int pairs_ht_count = _ht.GetCount(EType.Pair);
+        int need_coins_count = coins_count - coins_ht_count;
+        int need_pairs_count = pairs_count - pairs_ht_count;
+
+        Add(need_coins_count, EType.Coin);
+        Add(need_pairs_count, EType.Pair);
     }
 }

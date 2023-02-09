@@ -25,7 +25,7 @@ public class Generator : IGenerator
 
     public string? GenerateContent(string content, ISTVars data, out IErrors errors)
     {
-        return _parser.Parse(content, null, data, out errors);
+        return _parser.Parse(content, data, data, out errors);
     }
 
     public IEnumerable<HTData> GenerateHT(EType? type, ISTVars? data, IEnumerable<BlockData> blocks, Action<HTData> on_ht)

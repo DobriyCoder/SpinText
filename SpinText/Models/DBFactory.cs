@@ -33,7 +33,8 @@ namespace SpinText.Models
 
         public void Remove()
         {
-            if (_db is null) return;
+            _db?.Dispose();
+            
             //_db.Update(_db.Templates);
         }
     }

@@ -1,3 +1,4 @@
+using DobriyCoder.Core.Events;
 using Microsoft.EntityFrameworkCore;
 using Org.BouncyCastle.Crypto.Tls;
 using SpiningText.Parser;
@@ -29,6 +30,7 @@ builder.Services.AddTransient<ExporterProvider>();
 builder.Services.AddTransient<IExportFile, CsvExportFile>();
 builder.Services.AddTransient<ILogFile, TxtLogFile>();
 builder.Services.AddTransient<IGenerator, Generator>();
+builder.Services.AddSingleton<EventsBus>();
 builder.Services.AddSingleton<HTProvider>();
 builder.Services.AddTransient<HTManager>();
 builder.Services.AddTransient<HTPairsManager>();

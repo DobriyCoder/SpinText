@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using DobriyCoder.Core.Events;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.EntityFrameworkCore;
 using SpinText.Coins.Models;
 using SpinText.HT.DB;
 using SpinText.Models;
@@ -10,10 +12,12 @@ public class CoinsManager
 {
     Db _db;
     DbSet<Coin> _coins => _db.Coins;
+    EventsBus _events;
 
-    public CoinsManager(DBFactory db_factory)
+    public CoinsManager(DBFactory db_factory, EventsBus events)
     {
         _db = db_factory.Create();
+        _events = events;
     }
 
     public IEnumerable<Coin> GetCoins() => _db.Coins;
@@ -31,9 +35,18 @@ public class CoinsManager
     {
         name = name.ToLower();
 
+        string query = @"
+            SET @row_number=0;
+            SELECT `s`.`Id`, `s`.`Name`
+            FROM (
+                SELECT (@row_number:=@row_number + 1) as Id, Name from Coins as c
+            ) AS `s`
+            WHERE (LOWER(`s`.`Name`) = """ + name + @""")
+            LIMIT 1;";
+
         int? index = _coins
-            .FromSqlRaw("SELECT row_number() OVER (ORDER BY Id) as Id, Name from Coins as c")
-            .Where(i => i.Name.ToLower() == name)
+            .FromSqlRaw(query)
+            .ToArray()
             .FirstOrDefault()
             ?.Id;
 
@@ -44,21 +57,67 @@ public class CoinsManager
         from = from.ToLower();
         to = to.ToLower();
 
+        string query = @"
+            SET @row_number=0;
+            SELECT `s`.`Id`, `s`.`Name`
+            FROM (
+                SELECT (@row_number:=@row_number + 1) as Id, Name from Coins as c
+            ) AS `s`
+            WHERE (LOWER(`s`.`Name`) = """ + from + @""" OR LOWER(`s`.`Name`) = """ + to + @""")
+            LIMIT 2;";
+
         return _coins
-            .FromSqlRaw("SELECT row_number() OVER (ORDER BY Id) as Id, Name from Coins as c")
-            .Where(i => i.Name.ToLower() == from || i.Name.ToLower() == to)
+            .FromSqlRaw(query)
+            .ToArray()
             .Select(i => i.Id - 1)
             .ToArray();
     }
     public int? GetPairIndex(string from, string to)
     {
-        var indexes = GetCoinsIndexes(from, to);
-        if (indexes.Length < 2 || indexes[0] == indexes[1]) return null;
+        if (from == to) return null;
 
-        int i1 = indexes[0];
-        int i2 = indexes[1];
+        int i1 = GetCoinIndex(from) ?? -1; if (i1 == -1) return null;
+        int i2 = GetCoinIndex(to) ?? -1; if (i2 == -1) return null;
+
         int count = _coins.Count();
-        int n = i1;
+
+        /*
+         * eth 0
+         * btc 1
+         * zoc 2
+         * usd 3
+         * eur 4
+         * 
+         * eth-btc 0-1 = 0
+         * eth-zoc 0-2 = 1
+         * eth-usd 0-3 = 2
+         * eth-eur 0-4 = 3
+         * btc-eth 1-0 = 4
+         * btc-zoc 1-2 = 5
+         * btc-usd 1-3 = 6
+         * btc-eur 1-4 = 7
+         * zoc-eth 2-0 = 8
+         * zoc-btc 2-1 = 9
+         * zoc-usd 2-3 = 10
+         * zoc-eur 2-4 = 11
+         * usd-eth 3-0 = 12
+         * usd-btc 3-1 = 13
+         * usd-zoc 3-2 = 14
+         * usd-eur 3-4 = 15
+         * eur-eth 4-0 = 16
+         * eur-btc 4-1 = 17
+         * eur-zoc 4-2 = 18
+         * eur-usd 4-3 = 19
+         * 
+         * zoc-usd 2-3 = 10
+         * i1 = 2; i2 = 1; count = 4;
+         * index = i1*(count - 1) + (i1 < i2 ? i2 - 1 : i2)
+         * pairs_count = count*(count - 1)
+         */
+
+        int index = i1 * (count - 1) + (i1 < i2 ? i2 - 1 : i2);
+
+        /*int n = i1;
         int pre_count = 0;
 
         for (int i = 1; i <= n; i++)
@@ -66,7 +125,7 @@ public class CoinsManager
             pre_count += count - 1;
         }
 
-        int index = pre_count + (i2 - i1) - 1;
+        int index = pre_count + Math.Abs(i2 - i1) - 1;*/
 
         return index;
     }
@@ -84,6 +143,8 @@ public class CoinsManager
         _coins.Add(coin);
         _db.SaveChanges();
         _db.Entry<Coin>(coin).State = EntityState.Detached;
+
+        _events.Trigger(this, EEvent.CoinsAdded);
     }
 
     public void Add(IEnumerable<Coin> coins)
@@ -96,6 +157,8 @@ public class CoinsManager
 
         _db.SaveChanges();
         Detach(coins);
+
+        _events.Trigger(this, EEvent.CoinsAdded);
     }
 
     public void Add(IEnumerable<string> names)
@@ -120,6 +183,29 @@ public class CoinsManager
         _coins.Remove(coin);
         _db.SaveChanges();
     }
+    public int GetCoinsCount()
+    {
+        return _coins.Count();
+    }
+    public int GetPairsCount(int? coins_count)
+    {
+        int count = coins_count ?? _coins.Count();
+        /*int i2 = count - 1;
+        int i1 = i2 - 1;
+        int n = i1;
+        int pre_count = 0;
+
+        for (int i = 1; i <= n; i++)
+        {
+            pre_count += count - 1;
+        }
+
+        int pairs_count = pre_count + (i2 - i1);*/
+
+        int pairs_count = count * (count - 1);
+
+        return pairs_count;
+    }
 
     void Detach(IEnumerable<Coin> coins)
     {
@@ -128,4 +214,5 @@ public class CoinsManager
             _db.Entry<Coin>(coin).State = EntityState.Detached;
         }
     }
+
 }
