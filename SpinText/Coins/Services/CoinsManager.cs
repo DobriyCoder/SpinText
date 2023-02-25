@@ -131,7 +131,7 @@ public class CoinsManager
     }
     public int? GetPairIndex(string name)
     {
-        string[] pair = name.Split('-').Select(i => i.Trim()).ToArray();
+        string[] pair = name.Split("--").Select(i => i.Trim()).ToArray();
         if (pair.Length < 2) return null;
         return GetPairIndex(pair[0], pair[1]);
     }
@@ -149,16 +149,19 @@ public class CoinsManager
 
     public void Add(IEnumerable<Coin> coins)
     {
+        int added = 0;
         foreach (Coin coin in coins)
         {
             if (_coins.Any(i => i.Name == coin.Name)) continue;
             _coins.Add(coin);
+            added++;
         }
 
         _db.SaveChanges();
         Detach(coins);
 
-        _events.Trigger(this, EEvent.CoinsAdded);
+        if (added > 0)
+            _events.Trigger(this, EEvent.CoinsAdded);
     }
 
     public void Add(IEnumerable<string> names)

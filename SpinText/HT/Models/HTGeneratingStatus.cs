@@ -4,10 +4,13 @@ namespace SpinText.HT.Models;
 
 public class HTGeneratingStatus
 {
-    public HTGeneratingStatus(int max)
+    int _count = 0;
+    public int Count => _count + Progress.Position;
+    public HTGeneratingStatus(int max, int count)
     {
         Progress = new ProgressBar();
         GeneratingCount = max;
+        _count = count;
     }
     public int GeneratingCount
     {

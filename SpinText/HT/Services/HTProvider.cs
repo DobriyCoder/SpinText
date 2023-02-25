@@ -125,6 +125,7 @@ public class HTProvider
             _ht.RefreshDb();
             _dbFactory.Remove();
             _working = false;
+            _status = null;
         }
         catch (Exception ex)
         {
@@ -176,12 +177,13 @@ public class HTProvider
 
     public HTGeneratingStatus CreateStatus(int max)
     {
-        _status = new HTGeneratingStatus(max);
+        var count = _ht.GetCount();
+        _status = new HTGeneratingStatus(max, count);
         return GetStatus();
     }
     public HTGeneratingStatus GetStatus()
     {
-        return _status;
+        return _status ?? CreateStatus(0);
     }
     public HTGeneratedLogData GetLastLog()
     {

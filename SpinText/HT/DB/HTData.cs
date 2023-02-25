@@ -11,6 +11,7 @@ public class HTBaseData : IDisposable
     public ELanguage Language { get; set; }
     public EType TemplateType { get; set; }
     public string Template { get; set; }
+    public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
 
     public void Dispose()
     {

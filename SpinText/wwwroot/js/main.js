@@ -262,6 +262,7 @@ jQuery('.dc-form-blocks').dcTpl(function ($, Export) {
 jQuery('.dc-generatingform').dcTpl(function ($, Export) {
     var $self = $(this);
     var get_status_url = '/home/GetHTGeneratingStatus';
+    var get_count_url = '/home/GetHTCount';
     var delay = 3000;
 
     var $pairs_input = $self.find('textarea');
@@ -285,6 +286,7 @@ jQuery('.dc-generatingform').dcTpl(function ($, Export) {
     function changeData(data) {
         $progress_bar.setPosition(data.progress.position);
         $status_bar.setValue(data.progress.position);
+        $status_bar.setCount(data.count);
     }
     function finishParsing() {
         enabledForm();
@@ -308,12 +310,17 @@ jQuery('.dc-generatingform').dcTpl(function ($, Export) {
         $btns.attr('disabled', 'disabled');
         $link_btns.addClass('dcg-btn_disabled');
     }
+    function setCount() {
+        $.post(get_count_url, function (msg) {
+            $status_bar.setCount(msg.count);
+        });
+    }
 
     (function () {
-
         $.post(get_status_url, function (msg) {
             if (!msg || msg.isCompleted) {
                 finishParsing();
+                setCount();
             }
             else {
                 disabledForm();
@@ -354,6 +361,7 @@ jQuery('.dc-generatingform').dcTpl(function ($, Export) {
 
         $.get($this.attr('href'), function () {
             $this.removeClass('dcg-btn_disabled');
+            setCount();
         });
     })
 });
@@ -409,13 +417,16 @@ jQuery('.dc-progress-bar').dcTpl(function ($, Export) {
 // status-bar
 jQuery('.dc-status-bar').dcTpl(function ($, Export) {
     var $self = $(this);
-    var $value = $self.find('.dc-status-bar__value');
+    var $value = $self.find('.dcj-generated-value');
+    var $count = $self.find('.dcj-count-value');
 
     var _max = 0;
     var _value = 0;
+    var _count = 0;
 
     function refresh() {
         $value.html(_value + '/' + _max);
+        $count.html(_count);
     }
 
     Export.setMax = function (max) {
@@ -425,6 +436,11 @@ jQuery('.dc-status-bar').dcTpl(function ($, Export) {
 
     Export.setValue = function (value) {
         _value = value;
+        refresh();
+    };
+
+    Export.setCount = function (count) {
+        _count = count;
         refresh();
     };
 

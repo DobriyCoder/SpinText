@@ -59,7 +59,8 @@ public class ApiController : Controller
         return new JsonResult(new
         {
             Status = "Ok",
-            Content = content
+            Content = content,
+            LastModified = tmp.CreatedDate,
         });
     }
     
@@ -96,7 +97,7 @@ public class ApiController : Controller
         });
     }
 
-    [Route("add-pair/{from}-{to}")]
+    [Route("add-pair/{from}--{to}")]
     public JsonResult AddPair(
         string from,
         string to,

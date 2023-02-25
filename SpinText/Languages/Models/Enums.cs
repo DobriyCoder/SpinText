@@ -2,7 +2,7 @@
 
 public enum ELanguage
 {
-    English,
+    English = 1,
     French,
     Russian,
     German,

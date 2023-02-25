@@ -10,7 +10,31 @@ namespace SpinText.HT.Services
     {
         Db _db;
         DBFactory _factory;
-        DbSet<HTData> _htTable => _db.Templates;
+        DbSet<HTData> _htTable
+        {
+            get
+            {
+                try
+                {
+                    return _db.Templates;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    RefreshDb();
+                    
+                    try
+                    {
+                        return _db.Templates;
+                    }
+                    catch (Exception ex1)
+                    {
+                        Console.WriteLine(ex1.Message);
+                        return null;
+                    }
+                }
+            }
+        }
 
         public HTCommonManager(DBFactory factory)
         {
@@ -26,22 +50,25 @@ namespace SpinText.HT.Services
         public HTData? GetHT(int index, EType type, ELanguage language)
         {
             RefreshDb();
+
+            uint id = _htTable.FirstOrDefault()?.Id ?? 0;
+            uint shift = id + (uint)index;
+
             return _htTable
-                .Where(i => i.Language == language && i.TemplateType == type)
-                .Skip(index)
-                .FirstOrDefault();
+                ?.Where(i => i.Language == language && i.TemplateType == type && i.Id == shift)
+                ?.FirstOrDefault();
         }
         public void AddHT(HTData data)
         {
             RefreshDb();
-            _htTable.Add(data);
+            _htTable?.Add(data);
             _db.SaveChanges();
             _db.Entry<HTData>(data).State = EntityState.Detached;
         }
         public void AddHTs(IEnumerable<HTData> data)
         {
             RefreshDb();
-            _htTable.AddRange(data);
+            _htTable?.AddRange(data);
             _db.SaveChanges();
             Detach(data);
         }
@@ -49,20 +76,37 @@ namespace SpinText.HT.Services
         public void ClearHTs()
         {
             RefreshDb();
-            _htTable.RemoveRange(_htTable);
+            _htTable?.RemoveRange(_htTable);
             _db.SaveChanges();
         }
         public void RefreshDb()
         {
-            _db.Dispose();
+            try
+            {
+                _db.Dispose();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("ERROR: " + ex.ToString());
+            }
             _db = _factory.Create();
         }
         public int GetCount(EType? type)
         {
             RefreshDb();
-            return type is null
-                ? _htTable.Count()
-                : _htTable.Count(i => i.TemplateType == type);
+            int count = 0;
+            try
+            {
+                count = type is null
+                    ? _htTable?.Count() ?? 0
+                    : _htTable?.Count(i => i.TemplateType == type) ?? 0;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("ERROR: " + ex.ToString());
+            }
+
+            return count;
         }
         void Detach(IEnumerable<HTData> data)
         {

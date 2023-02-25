@@ -66,12 +66,23 @@ public class HTManager
         _pairs.RefreshDb();
         _common.RefreshDb();
     }
-
+    public int GetCount()
+    {
+        return GetCount(EType.Pair) + GetCount(EType.Coin);
+    }
     public int GetCount(EType type)
     {
-        return type == EType.Pair
-            ? _pairs.GetCount()
-            : _common.GetCount(type);
+        try
+        {
+            return type == EType.Pair
+                ? _pairs.GetCount()
+                : _common.GetCount(type);
+        }
+        catch(Exception e)
+        {
+            return 0;
+        }
+        
     }
     HTData BaseToCommon(HTBaseData pairs) => new HTData()
     {

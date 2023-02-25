@@ -125,6 +125,13 @@ public class HomeController : Controller
     {
         return new JsonResult(ht.GetStatus());
     }
+    public JsonResult GetHTCount([FromServices] HTManager ht)
+    {
+        return new JsonResult(new
+        {
+            Count = ht.GetCount()
+        });
+    }
     public FileResult GetHTGeneratedLog(
         [FromServices] HTProvider ht,
         [FromServices] ExporterProvider exporter)
