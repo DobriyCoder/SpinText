@@ -1,5 +1,4 @@
-﻿using DobriyCoder.Core.Exceptions;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using SpinText.Blocks.DB;
 using SpinText.Languages.Models;
 using SpinText.Models;

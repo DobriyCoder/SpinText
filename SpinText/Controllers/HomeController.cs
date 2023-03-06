@@ -1,5 +1,4 @@
-﻿using DobriyCoder.Core.Exceptions;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using SpinText.Blocks.DB;
 using SpinText.Blocks.Services;
 using SpinText.Coins.Services;
