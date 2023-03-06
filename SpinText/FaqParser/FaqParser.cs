@@ -9,9 +9,7 @@ public class FaqParser : IFaqParser
     public const string FAQ_NAME = "faq";
     public const string ITEM_NAME = "item";
     public const string QUESTION_NAME = "question";
-    public const string H3_NAME = "h3";
     public const string ANSWER_NAME = "answer";
-    public const string P_NAME = "p";
 
     public FaqParserResult Parse(string text)
     {
@@ -36,13 +34,9 @@ public class FaqParser : IFaqParser
                     res.Add(item?
                         .GetElementsByTagName(QUESTION_NAME)?
                         .FirstOrDefault()?
-                        .GetElementsByTagName(H3_NAME)?
-                        .FirstOrDefault()?
                         .InnerHtml
                         , item?
                         .GetElementsByTagName(ANSWER_NAME)?
-                        .FirstOrDefault()?
-                        .GetElementsByTagName(P_NAME)?
                         .FirstOrDefault()?
                         .InnerHtml);
                 result.Faq.Add(res);

@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using SpiningText.Models;
 using SpinText.Blocks.Services;
 using SpinText.Coins.Services;
+using SpinText.FaqParser;
 using SpinText.Generator.Services;
 using SpinText.HT.Services;
 using SpinText.Languages.Models;
@@ -19,6 +20,7 @@ public class ApiController : Controller
         string key,
         ELanguage lang,
         EType type,
+        [FromServices] IFaqParser faqParser,
         [FromServices] IGenerator generator,
         [FromServices] CoinsManager coins,
         [FromServices] HTManager templates)
@@ -55,10 +57,22 @@ public class ApiController : Controller
             Error = errors.Message
         });
 
+        var result  = faqParser.Parse(content!);
+        if (result.Errors.IsErrors) return new JsonResult(new
+        {
+            Status = "Failed",
+            Error = result.Errors.Message
+        });
+
         return new JsonResult(new
         {
             Status = "Ok",
-            Content = content,
+            Content = result.ContentWithoutFaq,
+            Faq = result.Faq.FirstOrDefault()?.Select(i => new
+            {
+                Title = i.Key,
+                Content = i.Value,
+            }),
             LastModified = tmp.CreatedDate,
         });
     }
