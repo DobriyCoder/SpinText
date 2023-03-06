@@ -5,6 +5,7 @@ using SpiningText.Parser;
 using SpinText.Blocks.Services;
 using SpinText.Coins.Services;
 using SpinText.Exporter.Services;
+using SpinText.FaqParser;
 using SpinText.Generator.Services;
 using SpinText.HT.Services;
 using SpinText.Languages.Services;
@@ -42,7 +43,7 @@ builder.Services.AddSingleton<TypesManager>();
 builder.Services.AddSingleton<DBFactory>();
 builder.Services.AddSingleton<ISTParser>(i => new STParser());
 
-
+builder.Services.AddTransient<IFaqParser, FaqParser>();
 
 var app = builder.Build();
 
