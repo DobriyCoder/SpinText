@@ -1,4 +1,4 @@
-﻿using DobriyCoder.Core.Common;
+﻿using DobriyCoder.Core.Errors.Old;
 
 namespace SpinText.FaqParser;
 

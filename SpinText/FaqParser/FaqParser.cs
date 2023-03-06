@@ -1,6 +1,4 @@
-﻿using DobriyCoder.Core.Common;
-
-namespace SpinText.FaqParser;
+﻿namespace SpinText.FaqParser;
 
 public class FaqParser : IFaqParser
 {
