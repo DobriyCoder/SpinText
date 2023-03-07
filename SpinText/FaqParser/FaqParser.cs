@@ -64,6 +64,7 @@ public class FaqParser : IFaqParser
                 }
                 result.Faq.Add(res);
             }
+            
             foreach (var element in doc.QuerySelectorAll(FAQ_NAME))
                 element.Replace(element.ChildNodes.ToArray());
             result.ContentWithoutFaq = doc?.Body?.InnerHtml;
