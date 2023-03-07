@@ -1,4 +1,5 @@
 ﻿using AngleSharp;
+using AngleSharp.Dom;
 using DobriyCoder.Core.Errors.Old;
 using System.Security.Cryptography.X509Certificates;
 
@@ -24,26 +25,52 @@ public class FaqParser : IFaqParser
             var config = Configuration.Default;
             using var context = BrowsingContext.New(config);
             using var doc = context.OpenAsync(req => req.Content(text)).Result;
+            Dictionary<string, string> res;
 
             Dictionary<string, string> res;
             var faqs = doc.GetElementsByTagName(FAQ_NAME);
+            if (faqs.Count() == 0) throw new Exception($"Тег {FAQ_NAME} отсутствует в документе");
+
             foreach (var faq in faqs)
             {
-                res = new Dictionary<string?, string?>();
-                foreach (var item in faq.GetElementsByTagName(ITEM_NAME))
-                    res.Add(item?
-                        .GetElementsByTagName(QUESTION_NAME)?
-                        .FirstOrDefault()?
-                        .InnerHtml
-                        , item?
-                        .GetElementsByTagName(ANSWER_NAME)?
-                        .FirstOrDefault()?
-                        .InnerHtml);
+                res = new Dictionary<string, string>();
+
+                var items = faq.GetElementsByTagName(ITEM_NAME);
+                if (items.Count() == 0) 
+                    throw new Exception($"Тег {ITEM_NAME} отсутствует в документе");
+
+                IHtmlCollection<IElement> questions, answers;
+                foreach (var item in items)
+                {
+                    questions = item.GetElementsByTagName(QUESTION_NAME);
+                    answers = item.GetElementsByTagName(ANSWER_NAME);
+
+                    if (questions.Count() == 0)
+                        throw new Exception($"Тег {QUESTION_NAME} отсутствует в документе");
+                    else if (answers.Count() == 0)
+                        throw new Exception($"Тег {ANSWER_NAME} отсутствует в документе");
+
+                    if(res.ContainsKey(questions
+                        .First()
+                        .InnerHtml))
+                        res[questions
+                        .First()
+                        .InnerHtml] = answers
+                        .First()
+                        .InnerHtml;
+                    else res.Add(questions
+                            .First()
+                            .InnerHtml
+                            , answers
+                            .First()
+                            .InnerHtml);
+                }
                 result.Faq.Add(res);
             }
+            
             foreach (var element in doc.QuerySelectorAll(FAQ_NAME))
-                element.Remove();
-            result.ContentWithoutFaq = doc.ToHtml();
+                element.Replace(element.ChildNodes.ToArray());
+            result.ContentWithoutFaq = doc?.Body?.InnerHtml;
         }
         catch (Exception ex)
         {
