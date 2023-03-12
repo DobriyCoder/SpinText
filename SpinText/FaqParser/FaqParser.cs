@@ -17,9 +17,9 @@ public class FaqParser : IFaqParser
         var res = new FaqParserResult();
         res.Content = text;
 
-        string input = "This written in <b>bold fonts</b>. This is simple font <b>again bold fonts</b>";
-        string regex = @" <b>\s*(.+?)\s*</b>";
-        var matches = Regex.Matches(input, regex);
+        //string input = "This written in <faq>bold fonts</faq>. This is simple font <faq>again bold fonts</faq>";
+        string regex = @"<faq>\s*(.+?)\s*</faq>";
+        var matches = Regex.Matches(text, regex);
         if (matches.Count > 0)
         {
             foreach (Match m in matches)
