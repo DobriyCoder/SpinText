@@ -17,12 +17,11 @@ public class FaqParser : IFaqParser
         var res = new FaqParserResult();
         res.Content = text;
 
-        //string input = "This written in <faq>bold fonts</faq>. This is simple font <faq>again bold fonts</faq>";
-        string regex = @"<faq>\s*(.+?)\s*</faq>";
-        var matches = Regex.Matches(text, regex);
-        if (matches.Count > 0)
+        string withoutFaqPattern = @"<faq>\s*(.+?)\s*</faq>";
+        var withoutFaqMatches = Regex.Matches(text, withoutFaqPattern);
+        if (withoutFaqMatches.Count > 0)
         {
-            foreach (Match m in matches)
+            foreach (Match m in withoutFaqMatches)
             {
                 res.ContentWithoutFaq += m.Groups[1].Value + "\n\n";
             }
