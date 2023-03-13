@@ -12,19 +12,42 @@ public class FaqParser : IFaqParser
     public const string QUESTION_NAME = "question";
     public const string ANSWER_NAME = "answer";
 
+    public const string WITHOUT_FAQ_PATTERN = @"<faq>\s*(.+?)\s*</faq>";
+    public const string QUESTION_WITH_ANSWER_PATTERN = @"<item>\s*<question>\s*(.+?)\s*</question>.*?<answer>\s*(.+?)\s*</answer>\s*</item>";
+
     public FaqParserResult RegexParse(string text)
     {
         var res = new FaqParserResult();
+        res.Faq = new List<Dictionary<string, string>>();
         res.Content = text;
+        res.Errors = new Errors();
+        Dictionary<string, string> result;
 
-        string withoutFaqPattern = @"<faq>\s*(.+?)\s*</faq>";
-        var withoutFaqMatches = Regex.Matches(text, withoutFaqPattern);
-        if (withoutFaqMatches.Count > 0)
+        try
         {
-            foreach (Match m in withoutFaqMatches)
+            var withoutFaqMatches = Regex.Matches(text, WITHOUT_FAQ_PATTERN);
+            if (withoutFaqMatches.Count > 0)
             {
-                res.ContentWithoutFaq += m.Groups[1].Value + "\n\n";
+                foreach (Match m in withoutFaqMatches)
+                {
+                    result = new Dictionary<string, string>();
+                    res.ContentWithoutFaq += m.Groups[1].Value;
+
+                    var quesionWithAnswerMatches = Regex.Matches(m.Groups[1].Value, QUESTION_WITH_ANSWER_PATTERN);
+
+                    foreach (Match qm in quesionWithAnswerMatches)
+                    {
+                        if (result.ContainsKey(qm.Groups[1].Value))
+                            result[qm.Groups[1].Value] = qm.Groups[2].Value;
+                        else result.Add(qm.Groups[1].Value, qm.Groups[2].Value);
+                    }
+                    res.Faq.Add(result);
+                }
             }
+        }
+        catch (Exception ex)
+        {
+            res.Errors.ErrorsList.Add(new Error(ex.Message));
         }
         return res;
     }
@@ -51,7 +74,7 @@ public class FaqParser : IFaqParser
         //        res = new Dictionary<string, string>();
 
         //        var items = faq.GetElementsByTagName(ITEM_NAME);
-        //        if (items.Count() == 0) 
+        //        if (items.Count() == 0)
         //            throw new Exception($"Тег {ITEM_NAME} отсутствует в документе");
 
         //        IHtmlCollection<IElement> questions, answers;
@@ -65,7 +88,7 @@ public class FaqParser : IFaqParser
         //            else if (answers.Count() == 0)
         //                throw new Exception($"Тег {ANSWER_NAME} отсутствует в документе");
 
-        //            if(res.ContainsKey(questions
+        //            if (res.ContainsKey(questions
         //                .First()
         //                .InnerHtml))
         //                res[questions
@@ -88,7 +111,7 @@ public class FaqParser : IFaqParser
         //}
         //catch (Exception ex)
         //{
-        //    result.Errors.ErrorsList.Add( new Error(ex.Message) );
+        //    result.Errors.ErrorsList.Add(new Error(ex.Message));
         //}
         return RegexParse(text);
     }
