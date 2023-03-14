@@ -74,8 +74,13 @@ namespace SpinText.HT.Services
 
         public void ClearHTs()
         {
+            int count = GetCount();
             RefreshDb();
-            _db.Database.ExecuteSqlRaw("DELETE FROM PairsTemplates");
+            while (count > 0)
+            {
+                _db.Database.ExecuteSqlRaw("DELETE FROM PairsTemplates limit 10000");
+                count -= 1000;
+            }
             _db.SaveChanges();
         }
         public void RefreshDb ()

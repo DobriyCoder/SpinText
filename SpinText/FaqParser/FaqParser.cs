@@ -27,7 +27,6 @@ public class FaqParser : IFaqParser
             using var doc = context.OpenAsync(req => req.Content(text)).Result;
             Dictionary<string, string> res;
 
-            Dictionary<string, string> res;
             var faqs = doc.GetElementsByTagName(FAQ_NAME);
             if (faqs.Count() == 0) throw new Exception($"Тег {FAQ_NAME} отсутствует в документе");
 
@@ -67,9 +66,10 @@ public class FaqParser : IFaqParser
                 }
                 result.Faq.Add(res);
             }
-            
+
             foreach (var element in doc.QuerySelectorAll(FAQ_NAME))
-                element.Replace(element.ChildNodes.ToArray());
+                element.Remove();//.Replace(element.ChildNodes.ToArray());
+
             result.ContentWithoutFaq = doc?.Body?.InnerHtml;
         }
         catch (Exception ex)
